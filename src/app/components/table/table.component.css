@@ -1,0 +1,14 @@
+.selected-square {
+    background-color: #1a50ce;
+}
+
+.highlighted-word {
+    background-color: #7fa5ff;
+}
+
+.hidden-input {
+    position: relative;
+    z-index: -2;
+    height: 1px;
+    width: 1px;
+}

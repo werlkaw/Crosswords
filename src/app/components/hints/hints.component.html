@@ -1,0 +1,4 @@
+<div class="arrange-horizontally add-padding">
+    <b>{{label}}</b>
+    <div [id]="getIdForHtml(item.value)" *ngFor="let item of hintData | keyvalue" [ngClass]="{striked: item.value.isStrikedOut()}" >{{item.value.hint}}</div>
+</div>

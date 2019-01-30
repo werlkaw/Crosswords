@@ -1,0 +1,23 @@
+.update-puzzle-button {
+    margin-left: 15px;
+    background-color: rgb(0, 204, 255);
+    color: white;
+}
+
+.centered {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    -webkit-transform: translate(-50%, -50%);
+    transform: translate(-50%, -50%);
+}
+
+.white-background {
+    position: absolute;
+    top: 0px;
+    left: 0px;
+    height: 100%;
+    width: 100%;
+    z-index: -1;
+    background: white;
+}

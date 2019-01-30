@@ -1,0 +1,28 @@
+<img src="assets/images/loading.gif" [hidden]="table.isLoaded()" class="centered"/>
+<div class="white-background"></div>
+<div [hidden]="!table.isLoaded()">
+    <div [hidden]="isCheater" class="arrange-horizontally">
+    <mat-form-field>
+        <input matInput [attr.disabled]="isPlayingGame()?'':null" #dateinput [matDatepicker]="picker" placeholder="Choose a date" [ngModel]="puzzleDate.value" (dateChange)="showNewPuzzle()">
+        <mat-datepicker-toggle matSuffix [for]="picker" [disabled]="isPlayingGame()?'':null"></mat-datepicker-toggle>
+        <mat-datepicker #picker></mat-datepicker>
+    </mat-form-field>
+    </div>
+    <div *ngIf="isPlayingGame()" class="arrange-horizontally">
+        <button class="update-puzzle-button" mat-button (click)="refreshPage()">Exit Game</button>
+    </div>
+    <div *ngIf="!isPlayingGame()" style="padding-left:30px" class="arrange-horizontally">
+        <mat-form-field>
+            <input matInput (keyup.enter)="startNewGame()" placeholder="Game Name" [(ngModel)]="newGameName">
+        </mat-form-field>
+        <button class="update-puzzle-button" type="submit" mat-button (click)="startNewGame()">Start New Game</button>
+        </div>
+    <div [hidden]="!table.isLoaded()" style="min-width: 2000px;">
+        <div style="height: 10px; padding-left: 20px;">
+            {{table.isVertical() ? downHints.getFocusedHint() : acrossHints.getFocusedHint()}}
+        </div>
+        <app-table #table (updatedSquare)="updatedSquare($event)" (newFocusedSquare)="newFocusedSquare($event)"></app-table>
+        <app-hints #acrossHints></app-hints>
+        <app-hints #downHints></app-hints>
+    </div>
+</div>
