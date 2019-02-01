@@ -255,12 +255,8 @@ export class TableComponent implements OnInit {
     let puzzleIncomplete = false
     this.tableData.forEach((row) => {
       row.forEach((square) => {
-        if (square.isWritable() && (!square.getLetter() || square.getLetter() != square.getAnswer())) {
-          somethingIsWrong = true
-        }
-        if (square.isWritable() && !square.getLetter()) {
-          puzzleIncomplete = true
-        }
+        somethingIsWrong = square.isWritable() && (!square.getLetter() || square.getLetter() != square.getAnswer())
+        puzzleIncomplete = square.isWritable() && !square.getLetter()
         if (puzzleIncomplete || somethingIsWrong) {
           return
         }

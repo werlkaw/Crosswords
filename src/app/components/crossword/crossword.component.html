@@ -16,9 +16,9 @@
             <input matInput (keyup.enter)="startNewGame()" placeholder="Game Name" [(ngModel)]="newGameName">
         </mat-form-field>
         <button class="update-puzzle-button" type="submit" mat-button (click)="startNewGame()">Start New Game</button>
-        </div>
+    </div>
     <div [hidden]="!table.isLoaded()">
-        <div class="current-hint-box">
+        <div id="current-hint-box">
             {{table.isVertical() ? downHints.getFocusedHint() : acrossHints.getFocusedHint()}}
         </div>
         <app-table #table (updatedSquare)="updatedSquare($event)" (newFocusedSquare)="newFocusedSquare($event)"></app-table>

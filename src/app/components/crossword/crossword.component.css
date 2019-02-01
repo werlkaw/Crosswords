@@ -22,7 +22,7 @@
     background: white;
 }
 
-.current-hint-box {
+#current-hint-box {
     height: 10px;
     padding-left: 20px;
 }
