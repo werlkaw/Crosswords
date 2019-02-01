@@ -11,14 +11,14 @@
     <div *ngIf="isPlayingGame()" class="arrange-horizontally">
         <button class="update-puzzle-button" mat-button (click)="refreshPage()">Exit Game</button>
     </div>
-    <div *ngIf="!isPlayingGame()" style="padding-left:30px" class="arrange-horizontally">
+    <div *ngIf="!isPlayingGame()" class="input-field arrange-horizontally">
         <mat-form-field>
             <input matInput (keyup.enter)="startNewGame()" placeholder="Game Name" [(ngModel)]="newGameName">
         </mat-form-field>
         <button class="update-puzzle-button" type="submit" mat-button (click)="startNewGame()">Start New Game</button>
         </div>
-    <div [hidden]="!table.isLoaded()" style="min-width: 100%;">
-        <div style="height: 10px; padding-left: 20px;">
+    <div [hidden]="!table.isLoaded()">
+        <div class="current-hint-box">
             {{table.isVertical() ? downHints.getFocusedHint() : acrossHints.getFocusedHint()}}
         </div>
         <app-table #table (updatedSquare)="updatedSquare($event)" (newFocusedSquare)="newFocusedSquare($event)"></app-table>

@@ -21,3 +21,8 @@
     z-index: -1;
     background: white;
 }
+
+.current-hint-box {
+    height: 10px;
+    padding-left: 20px;
+}
