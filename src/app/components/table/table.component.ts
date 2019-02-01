@@ -18,10 +18,13 @@ export class TableComponent implements OnInit {
   private _isVertical: boolean
   private _isLoaded: boolean
   private focusedSquare: CrosswordSquare
+  private successAudio: HTMLAudioElement = new Audio()
+  private playedSuccessAudio = false
   public tableData: CrosswordSquare[][] = new Array()
-  private tableAnswerLetters: string[][] = new Array()
 
-  constructor() { }
+  constructor() {
+    this.successAudio.src = "../../assets/ywwowoo.mp3"
+  }
 
   ngOnInit() {}
 
@@ -65,6 +68,9 @@ export class TableComponent implements OnInit {
     // Hack for mobile browsers.
     this.puzzleInput.nativeElement.blur()
     this.puzzleInput.nativeElement.focus()
+
+    // Checks if the puzzle is completed.
+    this.checkFinishedState()
   }
 
   /* movePuzzleInput repositions the hidden input to be close to the selected square.
@@ -239,7 +245,24 @@ export class TableComponent implements OnInit {
     return gameState
   }
 
-  public updateFromDatabase(databaseData: string[][]) {
+  // Checks if the puzzle is completed. If it is, runs some end-game code.
+  private checkFinishedState() {
+    let puzzleIsWrong = false
+    this.tableData.forEach((row) => {
+      row.forEach((square) => {
+        if (square.isWritable() && (!square.getLetter() || square.getLetter() != square.getAnswer())) {
+          puzzleIsWrong = true
+        }
+      })
+    })
+
+    if (!puzzleIsWrong && !this.playedSuccessAudio) {
+      this.successAudio.play();
+      this.playedSuccessAudio = true
+    }
+  }
+
+  public updateFromDatabase(databaseData: string[][], firstLoad: boolean) {
     if (databaseData.length != this.tableData.length) {
       console.log("data is corrupt, number of rows don't match")
       return
@@ -261,20 +284,20 @@ export class TableComponent implements OnInit {
         }
       }
     }
+    if (!firstLoad) {
+      this.checkFinishedState()
+    }
   }
 
   public populate(data: Document) {
     // Initialize data and answers to empty arrays
     this._isLoaded = false
     this.tableData = new Array()
-    this.tableAnswerLetters = new Array()
     let rows = data.getElementsByTagName("tr")
     for (let row = 0; row < rows.length; row++) {
       this.tableData.push(new Array())
-      this.tableAnswerLetters.push(new Array())
       let columns = rows[row].getElementsByTagName("td")
       for (let column = 0; column < columns.length; column++) {
-        this.tableAnswerLetters[row].push("")
         let currentSquare = new CrosswordSquare([row, column]);
         if (columns[column].getAttribute("class") !== null) {
           for (let cssClass of columns[column].getAttribute("class").split(" ")) {
@@ -290,7 +313,7 @@ export class TableComponent implements OnInit {
         currentSquare.setBlack(columns[column].getAttribute("class") === "black")
         let letterElem = columns[column].getElementsByClassName("letter")
         if (letterElem.length > 0) {
-          this.tableAnswerLetters[row][column] = letterElem[0].innerHTML
+          currentSquare.setAnswer(letterElem[0].innerHTML)
         }
         let numberElem = columns[column].getElementsByClassName("num")
         if (numberElem.length > 0) {

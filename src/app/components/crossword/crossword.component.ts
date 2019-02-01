@@ -112,18 +112,26 @@ export class CrosswordComponent implements OnInit {
      subscriptions necessary to keep the game updated when other people modify it. */
   private startGameListeners() {
     if (this.isPlayingGame()) {
-      var updateGameDataCallback = (snap) => {
-        if (this.table.isLoaded()) {
-          this.table.updateFromDatabase(snap.child(DatabaseService.GAME_DATA_CHILD_NAME).val())
-          this.acrossHints.updateFromDatabase(snap.child(DatabaseService.ACROSS_STRIKED_CHILD_NAME).val())
-          this.downHints.updateFromDatabase(snap.child(DatabaseService.DOWN_STRIKED_CHILD_NAME).val())
+      var updateGameDataCallback = () => {
+        // We want to know if this is was called because the user navigated to the page or because there was
+        // activity from other users. This keeps the success audio from playing if a user navigates to a
+        // puzzle that has previously been solved.
+        var firstLoad = true
+        return (snap) => {
+          if (this.table.isLoaded()) {
+            this.table.updateFromDatabase(snap.child(DatabaseService.GAME_DATA_CHILD_NAME).val(), firstLoad)
+            this.acrossHints.updateFromDatabase(snap.child(DatabaseService.ACROSS_STRIKED_CHILD_NAME).val())
+            this.downHints.updateFromDatabase(snap.child(DatabaseService.DOWN_STRIKED_CHILD_NAME).val())
+          }
         }
+        firstLoad = false
       }
-      this.db.getGameRef(this.playingGameName).once("value", updateGameDataCallback)
-      this.db.getGameRef(this.playingGameName).on("value", updateGameDataCallback)
+      this.db.getGameRef(this.playingGameName).once("value", updateGameDataCallback())
+      this.db.getGameRef(this.playingGameName).on("value", updateGameDataCallback())
     }
   }
 
+  /* showNewPuzzle loads a new puzzle on the page. */
   public showNewPuzzle() {
     this.puzzleDate.setValue(new Date(this.dateinput.nativeElement.value))
     if (this.isPlayingGame()) {
@@ -139,6 +147,7 @@ export class CrosswordComponent implements OnInit {
     window.location.reload()
   }
 
+  /* startNewGame creates a new collaborative game and redirect the URL to that game's page. */
   private startNewGame() {
     if (!/^[a-z0-9-]+$/i.test(this.newGameName)) {
       window.alert("Game name must not be empty and must be alpha-numeric")
@@ -172,6 +181,7 @@ export class CrosswordComponent implements OnInit {
     this.startGameListeners()
   }
 
+  /* showCrossword fetches a crossword puzzle from the database or from the API and populates all components. */
   showCrossword(loadDate: Date) {
     if (loadDate != null) {
       this.puzzleDate.setValue(loadDate)

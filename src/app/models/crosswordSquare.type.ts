@@ -21,6 +21,7 @@ export class HintGroup {
 export class CrosswordSquare {
   private cssClasses: CssClasses = new CssClasses()
   private letter: string = ""
+  private answer: string = ""
   private staticText: string = ""
   private number: string = ""
   private black: boolean
@@ -30,6 +31,14 @@ export class CrosswordSquare {
 
   constructor(tableLocation: [number, number]) {
     this.tableLocation = tableLocation
+  }
+
+  public getAnswer() {
+    return this.answer
+  }
+
+  public setAnswer(data: string) {
+    this.answer = data
   }
 
   public getAcrossGroup() {
@@ -89,6 +98,8 @@ export class CrosswordSquare {
       if ((charCode >= "A".charCodeAt(0) && charCode <= "Z".charCodeAt(0)) || 
           (charCode >= "a".charCodeAt(0) && charCode <= "z".charCodeAt(0))) {
             this.letter = data.toUpperCase()
+      } else {
+        this.letter = data
       }
     }
   }
