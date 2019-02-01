@@ -245,20 +245,37 @@ export class TableComponent implements OnInit {
     return gameState
   }
 
+  private showMessage(message: string) {
+    setTimeout(() => { window.alert(message)}, 1)
+  }
+
   // Checks if the puzzle is completed. If it is, runs some end-game code.
   private checkFinishedState() {
-    let puzzleIsWrong = false
+    let somethingIsWrong = false
+    let puzzleIncomplete = false
     this.tableData.forEach((row) => {
       row.forEach((square) => {
         if (square.isWritable() && (!square.getLetter() || square.getLetter() != square.getAnswer())) {
-          puzzleIsWrong = true
+          somethingIsWrong = true
+        }
+        if (square.isWritable() && !square.getLetter()) {
+          puzzleIncomplete = true
+        }
+        if (puzzleIncomplete || somethingIsWrong) {
+          return
         }
       })
+      if (puzzleIncomplete || somethingIsWrong) {
+        return
+      }
     })
 
-    if (!puzzleIsWrong && !this.playedSuccessAudio) {
+    if (!somethingIsWrong && !this.playedSuccessAudio) {
       this.successAudio.play();
       this.playedSuccessAudio = true
+      this.showMessage("congrats, you did it!")
+    } else if (!puzzleIncomplete) {
+      this.showMessage("hmm... something's wrong, keep trying!")
     }
   }
 
