@@ -4,9 +4,6 @@ import { NgModule } from '@angular/core';
 import { AngularFireModule } from '@angular/fire';
 import { AngularFireDatabaseModule } from '@angular/fire/database';
 import { FormsModule } from '@angular/forms';
-import { MatButtonModule } from '@angular/material';
-import { MatDatepickerModule } from '@angular/material/datepicker';
-import { MatFormFieldModule, MatNativeDateModule, MatInputModule } from '@angular/material';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { AppComponent } from './app.component';
 import { environment } from '../environments/environment';
@@ -15,6 +12,9 @@ import { TableComponent } from './components/table/table.component';
 import { HintsComponent } from './components/hints/hints.component';
 import { RouterModule, Routes } from '@angular/router';
 import { DatePipe } from '@angular/common';
+import { TopbarComponent } from './components/topbar/topbar.component';
+
+import { MaterialModule } from './material.module';
 
 const appRoutes: Routes = [
   { path: '', component: CrosswordComponent}
@@ -25,7 +25,8 @@ const appRoutes: Routes = [
     AppComponent,
     CrosswordComponent,
     TableComponent,
-    HintsComponent
+    HintsComponent,
+    TopbarComponent
   ],
   imports: [
     AngularFireModule.initializeApp(environment.firebase, 'crosswords'),
@@ -34,11 +35,7 @@ const appRoutes: Routes = [
     BrowserModule,
     FormsModule,
     HttpClientModule,
-    MatButtonModule,
-    MatDatepickerModule,
-    MatFormFieldModule,
-    MatInputModule,
-    MatNativeDateModule,
+    MaterialModule,
     RouterModule.forRoot(appRoutes)
   ],
   providers: [
