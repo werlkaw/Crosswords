@@ -10,7 +10,7 @@ import { Hint, HintBuilder } from 'src/app/models/crosswordHint.type';
 export class HintsComponent implements OnInit {
   public label: string
   public hintData: Map<number, Hint>
-  private focusedHint: string
+  private focusedHint: Hint
   constructor() { }
 
   ngOnInit() {}
@@ -24,11 +24,13 @@ export class HintsComponent implements OnInit {
   }
 
   public setFocusedHint(hintNumber: number) {
-    this.focusedHint = this.hintData.get(hintNumber).getHint()
+    this.focusedHint = this.hintData.get(hintNumber)
   }
 
-  public getFocusedHint() {
-    return this.focusedHint
+  public getFocusedHint(): string {
+    if (this.focusedHint) {
+      return this.focusedHint.getNumber() + ". " + this.focusedHint.getHint()
+    }
   }
 
   private getNumberFromHint(hint: string): number {
@@ -44,6 +46,10 @@ export class HintsComponent implements OnInit {
     return hint.indexOf(". ")
   }
 
+  private getStartOfHint(hint: string): number {
+    return hint.indexOf(". ") + 2
+  }
+
   private getEndOfHint(hint: string): number {
     return hint.indexOf(" : ")
   }
@@ -52,8 +58,8 @@ export class HintsComponent implements OnInit {
     return hint.indexOf(" : ") + 3
   }
 
-  private getHintObjectFromHintString(hint_answer: string): Hint {
-    var hint = hint_answer.substring(0, this.getEndOfHint(hint_answer))
+  private getHintObjectFromString(hint_answer: string): Hint {
+    var hint = hint_answer.substring(this.getStartOfHint(hint_answer), this.getEndOfHint(hint_answer))
     var answer = hint_answer.substring(this.getStartOfAnswer(hint_answer), hint_answer.length)
     var num = +hint_answer.substring(0, this.getEndOfNumber(hint_answer))
     return new HintBuilder().setHint(hint).setAnswer(answer).setNumber(num).build()
@@ -86,11 +92,11 @@ export class HintsComponent implements OnInit {
 
   populate(data: Document) {
     this.hintData = new Map()
-    this.focusedHint = ""
+    this.focusedHint = null
     var all_hints = data.getElementsByTagName("div")[2]
     var split_hints = Array.prototype.slice.call(all_hints.getElementsByTagName("div"))
     for (var hint of split_hints) {
-      this.hintData.set(this.getNumberFromHint(hint.innerHTML), this.getHintObjectFromHintString(hint.innerHTML))
+      this.hintData.set(this.getNumberFromHint(hint.innerHTML), this.getHintObjectFromString(hint.innerHTML))
     }
   }
 }

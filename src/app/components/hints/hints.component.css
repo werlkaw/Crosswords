@@ -1,3 +1,17 @@
 .striked {
     text-decoration: line-through;
 }
+
+.hints-main {
+    width: 300px;
+    height: 600px;
+    overflow-y: scroll;
+}
+
+.hints-table tr td {
+    vertical-align: top;
+}
+
+.hints-number {
+    text-align: right;
+}
