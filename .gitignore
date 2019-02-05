@@ -40,3 +40,6 @@ Thumbs.db
 
 # Ignore environment files
 */environments/*
+
+# Ignore firebase cache file (modified when deploying)
+.firebase/hosting.ZGlzdFxDcm9zc3dvcmRz.cache
