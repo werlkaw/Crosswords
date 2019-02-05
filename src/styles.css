@@ -18,7 +18,7 @@ body{font-family:'Segoe UI',Tahoma,Helvetica,Sans-Serif;font-size:12px;color:#33
 
 /* On screens that are 600px or less, set the background color to olive */
 @media screen and (max-width: 600px) {
-    .hints-main {
+    .hints-hideable {
         display: none;
     }
 }

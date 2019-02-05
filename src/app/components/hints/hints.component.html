@@ -1,12 +1,13 @@
-<table class="arrange-horizontally add-padding">
+<table class="arrange-horizontally add-padding hints-hideable">
     <th><b>{{label}}</b></th>
-<tr>
-    <div class="hints-main">
-        <table class="hints-table">
-            <tr [id]="getIdForHtml(item.value)" *ngFor="let item of hintData | keyvalue" [ngClass]="{striked: item.value.isStrikedOut()}">
-                <td class="hints-number">{{item.value.getNumber()}}.</td>
-                <td>{{item.value.getHint()}}</td>
-            </tr>
-        </table>
-    </div>
-</tr>
+    <tr>
+        <div class="hints-main">
+            <table class="hints-table" cellspacing="0">
+                <tr [id]="getIdForHtml(item.value)" *ngFor="let item of hintData | keyvalue" [ngClass]="{striked: item.value.isStrikedOut()}">
+                    <td class="hints-number">{{item.value.getNumber()}}.</td>
+                    <td>{{item.value.getHint()}}</td>
+                </tr>
+            </table>
+        </div>
+    </tr>
+</table>

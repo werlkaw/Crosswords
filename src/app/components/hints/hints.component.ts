@@ -1,6 +1,8 @@
 import { Component, OnInit, ViewEncapsulation } from '@angular/core';
 import { Hint, HintBuilder } from 'src/app/models/crosswordHint.type';
 
+var HIGHLIGHT_HINT_BACKGROUND = "#D3D3D3"
+
 @Component({
   selector: 'app-hints',
   templateUrl: './hints.component.html',
@@ -23,8 +25,20 @@ export class HintsComponent implements OnInit {
     return this.hintData
   }
 
+  private highlightFocusedHint(focusedHintElem: HTMLElement) {
+    this.hintData.forEach((hint) => {
+      var elem = document.getElementById(this.getIdForHtml(hint))
+      elem.style.backgroundColor = ""
+    })
+    focusedHintElem.style.backgroundColor = HIGHLIGHT_HINT_BACKGROUND
+  }
+
   public setFocusedHint(hintNumber: number) {
     this.focusedHint = this.hintData.get(hintNumber)
+    var hintElemId = this.getIdForHtml(this.focusedHint)
+    var hintElem = document.getElementById(hintElemId)
+    this.highlightFocusedHint(hintElem)
+    hintElem.scrollIntoView()
   }
 
   public getFocusedHint(): string {
