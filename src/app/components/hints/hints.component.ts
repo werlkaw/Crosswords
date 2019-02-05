@@ -96,7 +96,7 @@ export class HintsComponent implements OnInit {
     var all_hints = data.getElementsByTagName("div")[2]
     var split_hints = Array.prototype.slice.call(all_hints.getElementsByTagName("div"))
     for (var hint of split_hints) {
-      this.hintData.set(this.getNumberFromHint(hint.innerHTML), this.getHintObjectFromString(hint.innerHTML))
+      this.hintData.set(this.getNumberFromHint(hint.textContent), this.getHintObjectFromString(hint.textContent))
     }
   }
 }
