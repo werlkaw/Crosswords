@@ -268,7 +268,7 @@ export class TableComponent implements OnInit {
         this.successAudio.play();
         this.playedSuccessAudio = true
         this.showMessage("congrats, you did it!")
-      } else {
+      } else if (somethingIsWrong) {
         this.showMessage("hmm... something's wrong, keep trying!")
       }
     }
