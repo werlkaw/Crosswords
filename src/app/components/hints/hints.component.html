@@ -1,10 +1,10 @@
-<table class="arrange-horizontally add-padding hints-hideable">
+<table *ngIf="hintData.size > 0" class="arrange-horizontally add-padding hints-hideable">
     <th><b>{{label}}</b></th>
     <tr>
         <div class="hints-main">
             <table class="hints-table" cellspacing="0">
                 <tr [id]="getIdForHtml(item.value)" *ngFor="let item of hintData | keyvalue" [ngClass]="{striked: item.value.isStrikedOut()}">
-                    <td class="hints-number">{{item.value.getNumber()}}.</td>
+                    <td class="hints-number">{{item.value.getNumber()}}.&nbsp;</td>
                     <td>{{item.value.getHint()}}</td>
                 </tr>
             </table>

@@ -107,8 +107,12 @@ export class HintsComponent implements OnInit {
   populate(data: Document) {
     this.hintData = new Map()
     this.focusedHint = null
-    var all_hints = data.getElementsByTagName("div")[2]
-    var split_hints = Array.prototype.slice.call(all_hints.getElementsByTagName("div"))
+    var allHints = data.getElementsByTagName("div")[2]
+    if (!allHints) {
+      console.log("something went wrong in hints populate")
+      return
+    }
+    var split_hints = Array.prototype.slice.call(allHints.getElementsByTagName("div"))
     for (var hint of split_hints) {
       this.hintData.set(this.getNumberFromHint(hint.textContent), this.getHintObjectFromString(hint.textContent))
     }
