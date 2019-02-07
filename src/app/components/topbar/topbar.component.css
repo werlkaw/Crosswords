@@ -3,6 +3,13 @@
     height: 40px;
 }
 
+.fixed-header {
+    position: fixed;
+    left: 0;
+    top: 0;
+    z-index: 1;
+}
+
 mat-toolbar {
     font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
     font-size: 20px;

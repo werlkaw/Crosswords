@@ -1,5 +1,5 @@
 <img src="assets/images/loading.gif" [hidden]="table.isLoaded()" class="centered"/>
-<div class="white-background"></div>
+<div class="white-background" style="width: 100%"></div>
 <div [hidden]="!table.isLoaded()">
     <div [hidden]="isCheater" class="arrange-horizontally">
     <mat-form-field>
@@ -18,11 +18,8 @@
         <button class="update-puzzle-button" type="submit" mat-button (click)="startNewGame()">Start New Game</button>
     </div>
     <div [hidden]="!table.isLoaded()">
-        <div id="current-hint-box">
-            {{table.isVertical() ? downHints.getFocusedHint() : acrossHints.getFocusedHint()}}
-        </div>
         <app-table #table (updatedSquare)="updatedSquare($event)" (newFocusedSquare)="newFocusedSquare($event)"></app-table>
-        <app-hints #acrossHints></app-hints>
-        <app-hints #downHints></app-hints>
+        <app-hints #acrossHints (hintForMobile)="outputToApp($event)"></app-hints>
+        <app-hints #downHints (hintForMobile)="outputToApp($event)"></app-hints>
     </div>
 </div>

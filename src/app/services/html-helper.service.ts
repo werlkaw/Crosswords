@@ -12,8 +12,6 @@ export class HtmlHelperService {
     for (var lx=0, ly=0;
          el != null;
          lx += el.offsetLeft, ly += el.offsetTop, el = el.offsetParent);
-    console.log("this is the x: " + lx)
-    console.log("this is the y: " + ly)
     return {x: lx,y: ly};
   }
 
@@ -26,5 +24,9 @@ export class HtmlHelperService {
 
     topElement.style.left = mainCoordinates.x + "px"
     topElement.style.top = mainCoordinates.y + "px"
+  }
+
+  public isMobile() {
+    return window.innerWidth < 600
   }
 }

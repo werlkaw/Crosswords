@@ -1,6 +1,6 @@
 <div class="app-wrapper">
-    <app-topbar></app-topbar>
+    <app-topbar #topbar></app-topbar>
     <div style="padding-left: 15px; padding-top: 15px">
-        <app-crossword></app-crossword>
+        <app-crossword (hintForMobile)="fillTopBarHint($event)"></app-crossword>
     </div>
 </div>

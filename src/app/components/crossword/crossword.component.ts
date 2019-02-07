@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
+import { Component, OnInit, ViewChild, ElementRef, Output, EventEmitter } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 
 import { TableService } from '../../services/table.service';
@@ -24,6 +24,7 @@ export class CrosswordComponent implements OnInit {
   @ViewChild('acrossHints') acrossHints: HintsComponent
   @ViewChild('downHints') downHints: HintsComponent
   @ViewChild('dateinput') dateinput: ElementRef
+  @Output() hintForMobile = new EventEmitter<string>()
   public puzzleDate: FormControl = new FormControl(new Date())
 
   private parser: DOMParser = new DOMParser()
@@ -107,6 +108,10 @@ export class CrosswordComponent implements OnInit {
 
   getDateStringFromDate(date: Date): string {
     return (date.getMonth() + 1) + "/" + date.getDate() + "/" + date.getFullYear()
+  }
+
+  public outputToApp(hint: string) {
+    this.hintForMobile.emit(hint)
   }
 
   isPlayingGame(): boolean {

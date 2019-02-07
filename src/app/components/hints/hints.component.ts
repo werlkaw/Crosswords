@@ -1,5 +1,6 @@
-import { Component, OnInit, ViewEncapsulation } from '@angular/core';
+import { Component, OnInit, ViewEncapsulation, Output, EventEmitter } from '@angular/core';
 import { Hint, HintBuilder } from 'src/app/models/crosswordHint.type';
+import { HtmlHelperService } from 'src/app/services/html-helper.service';
 
 var HIGHLIGHT_HINT_BACKGROUND = "#D3D3D3"
 
@@ -10,10 +11,12 @@ var HIGHLIGHT_HINT_BACKGROUND = "#D3D3D3"
   encapsulation: ViewEncapsulation.None
 })
 export class HintsComponent implements OnInit {
+  @Output() hintForMobile = new EventEmitter<string>();
   public label: string
-  public hintData: Map<number, Hint>
+  public hintData: Map<number, Hint> = new Map()
   private focusedHint: Hint
-  constructor() { }
+
+  constructor(private htmlHelper: HtmlHelperService) { }
 
   ngOnInit() {}
 
@@ -40,6 +43,9 @@ export class HintsComponent implements OnInit {
     var hintElem = document.getElementById(hintElemId)
     hintElem.style.backgroundColor = HIGHLIGHT_HINT_BACKGROUND
     hintElem.scrollIntoView()
+    if (this.htmlHelper.isMobile()) {
+      this.hintForMobile.emit(this.getFocusedHint())
+    }
   }
 
   public getFocusedHint(): string {
