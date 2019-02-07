@@ -96,8 +96,13 @@ export class CrosswordComponent implements OnInit {
 
   /* newFocusedSquare is executed everytime a new square is clicked on in the puzzle. */
   newFocusedSquare(focusedSquare: CrosswordSquare) {
-    this.acrossHints.setFocusedHint(focusedSquare.getAcrossGroup().getHintNumber())
-    this.downHints.setFocusedHint(focusedSquare.getDownGroup().getHintNumber())
+    this.downHints.clearHighlightedHints()
+    this.acrossHints.clearHighlightedHints()
+    if (this.table.isVertical()) {
+      this.downHints.setFocusedHint(focusedSquare.getDownGroup().getHintNumber())
+    } else {
+      this.acrossHints.setFocusedHint(focusedSquare.getAcrossGroup().getHintNumber())
+    }
   }
 
   getDateStringFromDate(date: Date): string {

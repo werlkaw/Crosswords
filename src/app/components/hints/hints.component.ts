@@ -25,11 +25,14 @@ export class HintsComponent implements OnInit {
     return this.hintData
   }
 
-  private highlightFocusedHint(focusedHintElem: HTMLElement) {
+  public clearHighlightedHints() {
     this.hintData.forEach((hint) => {
       var elem = document.getElementById(this.getIdForHtml(hint))
       elem.style.backgroundColor = ""
     })
+  }
+
+  private highlightFocusedHint(focusedHintElem: HTMLElement) {
     focusedHintElem.style.backgroundColor = HIGHLIGHT_HINT_BACKGROUND
   }
 
