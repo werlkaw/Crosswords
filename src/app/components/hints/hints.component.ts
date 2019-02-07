@@ -32,15 +32,11 @@ export class HintsComponent implements OnInit {
     })
   }
 
-  private highlightFocusedHint(focusedHintElem: HTMLElement) {
-    focusedHintElem.style.backgroundColor = HIGHLIGHT_HINT_BACKGROUND
-  }
-
   public setFocusedHint(hintNumber: number) {
     this.focusedHint = this.hintData.get(hintNumber)
     var hintElemId = this.getIdForHtml(this.focusedHint)
     var hintElem = document.getElementById(hintElemId)
-    this.highlightFocusedHint(hintElem)
+    hintElem.style.backgroundColor = HIGHLIGHT_HINT_BACKGROUND
     hintElem.scrollIntoView()
   }
 
