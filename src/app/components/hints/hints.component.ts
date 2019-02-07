@@ -34,6 +34,8 @@ export class HintsComponent implements OnInit {
 
   public setFocusedHint(hintNumber: number) {
     this.focusedHint = this.hintData.get(hintNumber)
+
+    // Highlight and scroll to hint in list.
     var hintElemId = this.getIdForHtml(this.focusedHint)
     var hintElem = document.getElementById(hintElemId)
     hintElem.style.backgroundColor = HIGHLIGHT_HINT_BACKGROUND

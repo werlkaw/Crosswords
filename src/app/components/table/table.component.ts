@@ -1,5 +1,6 @@
 import { Component, OnInit, ViewEncapsulation, ViewChild, ElementRef, Output, EventEmitter } from '@angular/core';
 import { CrosswordSquare, HintGroup } from 'src/app/models/crosswordSquare.type';
+import { HtmlHelperService } from 'src/app/services/html-helper.service';
 
 const SELECTED_SQUARE_CLASS = "selected-square"
 const HIGHLIGHTED_WORD_CLASS = "highlighted-word"
@@ -15,14 +16,14 @@ export class TableComponent implements OnInit {
   @Output() newFocusedSquare = new EventEmitter<CrosswordSquare>();
   @ViewChild("puzzleInput") puzzleInput: ElementRef
 
-  private _isVertical: boolean
+  private _isVertical: boolean = false
   private _isLoaded: boolean
   private focusedSquare: CrosswordSquare
   private successAudio: HTMLAudioElement = new Audio()
   private playedSuccessAudio = false
   public tableData: CrosswordSquare[][] = new Array()
 
-  constructor() {
+  constructor(private htmlHelper: HtmlHelperService) {
     this.successAudio.src = "../../assets/success.mp3"
   }
 
@@ -78,8 +79,7 @@ export class TableComponent implements OnInit {
   private movePuzzleInput(clickedSquare: CrosswordSquare) {
     var clickedSquareElem = document.getElementById(clickedSquare.getIdForHtml())
     var puzzElem = document.getElementById("puzzElem")
-    puzzElem.style.left = clickedSquareElem.offsetLeft + "px"
-    puzzElem.style.top = clickedSquareElem.offsetTop + "px"
+    this.htmlHelper.placeAbove(clickedSquareElem, puzzElem)
   }
 
   private onSquareClick(clickedSquare: CrosswordSquare) {
