@@ -63,14 +63,6 @@ export class HintsComponent implements OnInit {
     }
   }
 
-  private getEndOfNumber(hint: string): number {
-    return hint.indexOf(". ")
-  }
-
-  private getStartOfHint(hint: string): number {
-    return hint.indexOf(". ") + 2
-  }
-
   private getEndOfHint(hint: string): number {
     return hint.indexOf(" : ")
   }
@@ -79,11 +71,10 @@ export class HintsComponent implements OnInit {
     return hint.indexOf(" : ") + 3
   }
 
-  private getHintObjectFromString(hint_answer: string): Hint {
-    var hint = hint_answer.substring(this.getStartOfHint(hint_answer), this.getEndOfHint(hint_answer))
+  private getHintObjectFromString(hint_number: number, hint_answer: string): Hint {
+    var hint = hint_answer.substring(0, this.getEndOfHint(hint_answer))
     var answer = hint_answer.substring(this.getStartOfAnswer(hint_answer), hint_answer.length)
-    var num = +hint_answer.substring(0, this.getEndOfNumber(hint_answer))
-    return new HintBuilder().setHint(hint).setAnswer(answer).setNumber(num).build()
+    return new HintBuilder().setHint(hint).setAnswer(answer).setNumber(hint_number).build()
   }
 
   public getSnapshotForDatabase() {
@@ -114,14 +105,15 @@ export class HintsComponent implements OnInit {
   populate(data: Document) {
     this.hintData = new Map()
     this.focusedHint = null
-    var allHints = data.getElementsByTagName("div")[2]
+    var allHints = data.getElementsByClassName("numclue")[0]
     if (!allHints) {
       console.log("something went wrong in hints populate")
       return
     }
     var split_hints = Array.prototype.slice.call(allHints.getElementsByTagName("div"))
-    for (var hint of split_hints) {
-      this.hintData.set(this.getNumberFromHint(hint.textContent), this.getHintObjectFromString(hint.textContent))
+    for (var i = 0; i < split_hints.length; i = i + 2) {
+      var hint_number = Number(split_hints[i].textContent)
+      this.hintData.set(hint_number, this.getHintObjectFromString(hint_number, split_hints[i + 1].textContent))
     }
   }
 }
