@@ -246,7 +246,7 @@ export class TableComponent implements OnInit {
   }
 
   private showMessage(message: string) {
-    setTimeout(() => { window.alert(message)}, 1)
+    setTimeout(() => { window.alert(message)}, 100)
   }
 
   // Checks if the puzzle is completed. If it is, runs some end-game code.
@@ -265,9 +265,7 @@ export class TableComponent implements OnInit {
 
     if (!emptySquare) {
       if (!somethingIsWrong && !this.playedSuccessAudio) {
-        setTimeout(() => {
-          this.successAudio.play()
-        }, 100)
+        this.successAudio.play()
         this.playedSuccessAudio = true
         this.showMessage("congrats, you did it!")
       } else if (somethingIsWrong) {
