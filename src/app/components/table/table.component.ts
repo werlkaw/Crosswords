@@ -82,7 +82,7 @@ export class TableComponent implements OnInit {
     this.htmlHelper.placeAbove(clickedSquareElem, puzzElem)
   }
 
-  private onSquareClick(clickedSquare: CrosswordSquare) {
+  public onSquareClick(clickedSquare: CrosswordSquare) {
     if (!clickedSquare.isWritable()) {
       return
     }
@@ -258,6 +258,9 @@ export class TableComponent implements OnInit {
         return
       }
       row.forEach((square) => {
+        if (emptySquare || somethingIsWrong) {
+          return
+        }
         somethingIsWrong = square.isWritable() && (!square.getLetter() || square.getLetter() != square.getAnswer())
         emptySquare = square.isWritable() && !square.getLetter()
       })
