@@ -254,16 +254,13 @@ export class TableComponent implements OnInit {
     let somethingIsWrong = false
     let emptySquare = false
     this.tableData.forEach((row) => {
-      if (emptySquare || somethingIsWrong) {
+      row.forEach((square) => {
+        somethingIsWrong = somethingIsWrong || (square.isWritable() && (!square.getLetter() || square.getLetter() != square.getAnswer()))
+        emptySquare = emptySquare || (square.isWritable() && !square.getLetter())
+      })
+      if (emptySquare) {
         return
       }
-      row.forEach((square) => {
-        if (emptySquare || somethingIsWrong) {
-          return
-        }
-        somethingIsWrong = square.isWritable() && (!square.getLetter() || square.getLetter() != square.getAnswer())
-        emptySquare = square.isWritable() && !square.getLetter()
-      })
     })
 
     if (!emptySquare) {
