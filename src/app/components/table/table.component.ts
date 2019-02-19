@@ -12,8 +12,8 @@ const HIGHLIGHTED_WORD_CLASS = "highlighted-word"
   encapsulation: ViewEncapsulation.None
 })
 export class TableComponent implements OnInit {
-  @Output() updatedSquare = new EventEmitter<CrosswordSquare>();
-  @Output() newFocusedSquare = new EventEmitter<CrosswordSquare>();
+  @Output() outputChangedSquare = new EventEmitter<CrosswordSquare>();
+  @Output() outputFocusedSquare = new EventEmitter<CrosswordSquare>();
   @ViewChild("puzzleInput") puzzleInput: ElementRef
 
   private _isVertical: boolean = false
@@ -31,28 +31,46 @@ export class TableComponent implements OnInit {
 
   private updateFocusedSquare(square: CrosswordSquare) {
     this.focusedSquare = square
-    this.newFocusedSquare.emit(this.focusedSquare)
+    this.outputFocusedSquare.emit(this.focusedSquare)
     this.highlightWord(this.focusedSquare)
   }
 
   private writeToSquare(square: CrosswordSquare, data: string) {
     square.setLetter(data)
-    this.updatedSquare.emit(square)
+    this.outputChangedSquare.emit(square)
   }
 
   public getTableData() {
     return this.tableData
   }
 
-  /* onKeyDown will capture when the backspace key is pressed. */
+  /* moveWithArrow changes the focused square based on the directional arrow pressed. */
+  private moveWithArrow(direction: string) {
+    var nextSquare = this.focusedSquare
+    var [row, col] = this.focusedSquare.getTableLocation()
+    if (direction == "ArrowDown" && row + 1 < this.tableData.length && this.tableData[row + 1][col].isWritable()) {
+      this.updateFocusedSquare(this.tableData[row+1][col])
+    } else if (direction == "ArrowUp" && row - 1 >= 0 && this.tableData[row - 1][col].isWritable()) {
+      this.updateFocusedSquare(this.tableData[row - 1][col])
+    } else if (direction == "ArrowLeft" && col - 1 >= 0 && this.tableData[row][col - 1].isWritable()) {
+      this.updateFocusedSquare(this.tableData[row][col - 1])
+    } else if (direction == "ArrowRight" && col + 1 < this.tableData[row].length && this.tableData[row][col + 1].isWritable()) {
+      this.updateFocusedSquare(this.tableData[row][col + 1])
+    }
+  }
+
+  /* onKeyDown captures when the backspace key is pressed. */
   public onKeyDown(event: any) {
     var input: string = event.key
+    console.log(input)
     if (input == "Backspace") {
       // If the current square is empty, delete the previous square.
       if (!this.focusedSquare.getLetter()) {
         this.focusPreviousSquare(this.focusedSquare)
       }
       this.writeToSquare(this.focusedSquare, "")
+    } else if (input == "ArrowUp" || input == "ArrowDown" || input == "ArrowLeft" || input == "ArrowRight") {
+      this.moveWithArrow(input)
     }
   }
 
