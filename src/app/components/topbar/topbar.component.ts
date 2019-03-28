@@ -1,5 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { HtmlHelperService } from 'src/app/services/html-helper.service';
+import { AngularFireAuth } from '@angular/fire/auth';
+import { Router } from '@angular/router';
+import { PathConstants } from 'src/app/constants/PathConstants';
+import { FirebaseUserService } from 'src/app/services/auth/firebase-user.service';
 
 @Component({
   selector: 'app-topbar',
@@ -8,7 +12,8 @@ import { HtmlHelperService } from 'src/app/services/html-helper.service';
 })
 export class TopbarComponent implements OnInit {
   public currentHint: string = ""
-  constructor(private htmlHelper: HtmlHelperService) { }
+  constructor(private htmlHelper: HtmlHelperService, private _router: Router,
+              public firebaseUser: FirebaseUserService) { }
 
   ngOnInit() {
   }

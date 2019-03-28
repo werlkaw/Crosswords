@@ -1,6 +1,4 @@
 <div class="app-wrapper">
     <app-topbar #topbar></app-topbar>
-    <div style="padding-left: 15px; padding-top: 15px">
-        <app-crossword (hintForMobile)="fillTopBarHint($event)"></app-crossword>
-    </div>
+    <router-outlet></router-outlet>
 </div>

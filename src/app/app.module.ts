@@ -10,15 +10,14 @@ import { environment } from '../environments/environment';
 import { CrosswordComponent } from './components/crossword/crossword.component';
 import { TableComponent } from './components/table/table.component';
 import { HintsComponent } from './components/hints/hints.component';
-import { RouterModule, Routes } from '@angular/router';
 import { DatePipe } from '@angular/common';
 import { TopbarComponent } from './components/topbar/topbar.component';
 
 import { MaterialModule } from './material.module';
-
-const appRoutes: Routes = [
-  { path: '', component: CrosswordComponent}
-]
+import { LoginComponent } from './components/login/login.component';
+import { HomeComponent } from './components/home/home.component';
+import { AppRoutes } from './app.routes';
+import { AngularFireAuthModule } from '@angular/fire/auth';
 
 @NgModule({
   declarations: [
@@ -26,17 +25,20 @@ const appRoutes: Routes = [
     CrosswordComponent,
     TableComponent,
     HintsComponent,
-    TopbarComponent
+    TopbarComponent,
+    LoginComponent,
+    HomeComponent
   ],
   imports: [
     AngularFireModule.initializeApp(environment.firebase, 'crosswords'),
+    AngularFireAuthModule,
     AngularFireDatabaseModule,
     BrowserAnimationsModule,
     BrowserModule,
     FormsModule,
     HttpClientModule,
     MaterialModule,
-    RouterModule.forRoot(appRoutes)
+    AppRoutes,
   ],
   providers: [
     DatePipe,

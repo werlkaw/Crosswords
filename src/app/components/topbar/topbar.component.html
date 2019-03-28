@@ -1,8 +1,24 @@
 <div class="header fixed-header">
-  <mat-toolbar color="primary">
-      <div class="container">
-          {{ showTopNavText() }}
-      </div>
+  <mat-toolbar color="primary" class="logo-text fill-width">
+      <div style="width: 100%;">
+        <table style="width: 100%">
+          <tr>
+          <td style="width:1px;white-space:nowrap;">
+          <div *ngIf="firebaseUser.loggedIn()" class="profile-pic-container">
+              <img class="profile-pic" src={{firebaseUser.getUserPhotoUrl()}}>
+          </div>
+          </td>
+          <td>
+          <div class="container">
+              {{ showTopNavText() }}
+          </div>
+          </td>
+          <td>
+          <div *ngIf="firebaseUser.loggedIn()" (click)="firebaseUser.signOut()" class="signout-button">Signout</div>
+          </td>
+          </tr>
+        </table>
+    </div>
   </mat-toolbar>
 </div>
 <div class="header"></div>
