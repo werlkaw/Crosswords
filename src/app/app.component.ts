@@ -1,5 +1,4 @@
-import { Component, ViewChild } from '@angular/core';
-import { TopbarComponent } from './components/topbar/topbar.component';
+import { Component } from '@angular/core';
 
 @Component({
   selector: 'app-root',
@@ -7,10 +6,5 @@ import { TopbarComponent } from './components/topbar/topbar.component';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent {
-  @ViewChild('topbar') topbar: TopbarComponent
   title = 'Crosswords'
-
-  fillTopBarHint(hint: string) {
-    this.topbar.updateHint(hint)
-  }
 }

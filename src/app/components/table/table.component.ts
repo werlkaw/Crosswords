@@ -24,7 +24,7 @@ export class TableComponent implements OnInit {
   public tableData: CrosswordSquare[][] = new Array()
 
   constructor(private htmlHelper: HtmlHelperService) {
-    this.successAudio.src = "../../assets/success.mp3"
+    this.successAudio.src = "../../assets/success.wav"
   }
 
   ngOnInit() {}
