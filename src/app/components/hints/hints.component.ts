@@ -12,6 +12,7 @@ var HIGHLIGHT_HINT_BACKGROUND = "#D3D3D3"
 })
 export class HintsComponent implements OnInit {
   @Output() hintForMobile = new EventEmitter<string>();
+  @Output() clickedHint = new EventEmitter<number>();
   public label: string
   public hintData: Map<number, Hint> = new Map()
   private focusedHint: Hint
@@ -35,14 +36,17 @@ export class HintsComponent implements OnInit {
     })
   }
 
-  public setFocusedHint(hintNumber: number) {
+  public setFocusedHint(hintNumber: number, scroll: boolean = true) {
+    this.clearHighlightedHints()
     this.focusedHint = this.hintData.get(hintNumber)
 
     // Highlight and scroll to hint in list.
     var hintElemId = this.getIdForHtml(this.focusedHint)
     var hintElem = document.getElementById(hintElemId)
     hintElem.style.backgroundColor = HIGHLIGHT_HINT_BACKGROUND
-    hintElem.scrollIntoView()
+    if (scroll) {
+      hintElem.scrollIntoView()
+    }
     if (this.htmlHelper.isMobile()) {
       this.hintForMobile.emit(this.getFocusedHint())
     }
@@ -51,15 +55,6 @@ export class HintsComponent implements OnInit {
   public getFocusedHint(): string {
     if (this.focusedHint) {
       return this.focusedHint.getNumber() + ". " + this.focusedHint.getHint()
-    }
-  }
-
-  private getNumberFromHint(hint: string): number {
-    try {
-      return Number(hint.substr(0, hint.indexOf(".")))
-    } catch(e) {
-      console.log("Bad hint input")
-      return -1
     }
   }
 

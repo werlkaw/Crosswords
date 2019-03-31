@@ -1,5 +1,3 @@
-import { CssClasses } from "./crosswordHtmlUtil.type";
-
 export class Hint {
     private hintNumber: number
     private hint: string

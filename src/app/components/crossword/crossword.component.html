@@ -18,8 +18,8 @@
         <button class="update-puzzle-button" type="submit" mat-button (click)="startNewGame()">Start New Game</button>
     </div>
     <div [hidden]="!table.isLoaded()">
-        <app-table #table (outputChangedSquare)="updatedSquare($event)" (outputFocusedSquare)="newFocusedSquare($event)"></app-table>
-        <app-hints #acrossHints (hintForMobile)="outputToApp($event)"></app-hints>
-        <app-hints #downHints (hintForMobile)="outputToApp($event)"></app-hints>
+        <app-table #table (outputChangedSquare)="updatedSquare($event)" (outputFocusedSquare)="updateFocusedHint($event)"></app-table>
+        <app-hints #acrossHints (hintForMobile)="outputToApp($event)" (clickedHint)="focusWordByClickedHint($event, false)"></app-hints>
+        <app-hints #downHints (hintForMobile)="outputToApp($event)" (clickedHint)="focusWordByClickedHint($event, true)"></app-hints>
     </div>
 </div>

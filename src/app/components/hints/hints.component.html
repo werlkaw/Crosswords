@@ -3,7 +3,7 @@
     <tr>
         <div class="hints-main">
             <table class="hints-table" cellspacing="0">
-                <tr [id]="getIdForHtml(item.value)" *ngFor="let item of hintData | keyvalue" [ngClass]="{striked: item.value.isStrikedOut()}">
+                <tr [id]="getIdForHtml(item.value)" *ngFor="let item of hintData | keyvalue" [ngClass]="{striked: item.value.isStrikedOut()}" (click)="this.clickedHint.emit(item.value.getNumber())">
                     <td class="hints-number">{{item.value.getNumber()}}.&nbsp;</td>
                     <td>{{item.value.getHint()}}</td>
                 </tr>

@@ -95,14 +95,23 @@ export class CrosswordComponent implements OnInit {
     }
   }
 
-  /* newFocusedSquare is executed everytime a new square is clicked on in the puzzle. */
-  newFocusedSquare(focusedSquare: CrosswordSquare) {
-    this.downHints.clearHighlightedHints()
+  /* focusWordByClickedHint updates the table first and highlights the appropriate
+     squares. Then, it highlights the clicked hint. */
+  public focusWordByClickedHint(hintNumber: number, verticalHighlight: boolean) {
+    this.table.setVertical(verticalHighlight)
+    this.table.updateFocusedSquareByClickedHint(hintNumber)
+    this.updateFocusedHint(this.table.getFocusedSquare(), false)
+  }
+
+  /* updateFocusedHint is executed every time a new square is clicked on in the puzzle.
+     It highlights the correct hint based on the square clicked. */
+  public updateFocusedHint(focusedSquare: CrosswordSquare, scroll: boolean = true) {
     this.acrossHints.clearHighlightedHints()
+    this.downHints.clearHighlightedHints()
     if (this.table.isVertical()) {
-      this.downHints.setFocusedHint(focusedSquare.getDownGroup().getHintNumber())
+      this.downHints.setFocusedHint(focusedSquare.getDownGroup().getHintNumber(), scroll)
     } else {
-      this.acrossHints.setFocusedHint(focusedSquare.getAcrossGroup().getHintNumber())
+      this.acrossHints.setFocusedHint(focusedSquare.getAcrossGroup().getHintNumber(), scroll)
     }
   }
 
@@ -158,7 +167,7 @@ export class CrosswordComponent implements OnInit {
   }
 
   /* startNewGame creates a new collaborative game and redirect the URL to that game's page. */
-  private startNewGame() {
+  public startNewGame() {
     if (!/^[a-z0-9-]+$/i.test(this.newGameName)) {
       window.alert("Game name must not be empty and must be alpha-numeric")
     } else {

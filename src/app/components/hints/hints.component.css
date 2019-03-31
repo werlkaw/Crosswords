@@ -10,6 +10,7 @@
 
 .hints-table tr td {
     vertical-align: top;
+    cursor: pointer;
 }
 
 .hints-number {

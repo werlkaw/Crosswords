@@ -29,10 +29,26 @@ export class TableComponent implements OnInit {
 
   ngOnInit() {}
 
-  private updateFocusedSquare(square: CrosswordSquare) {
+  private updateFocusedSquare(square: CrosswordSquare, emit: boolean = true) {
     this.focusedSquare = square
-    this.outputFocusedSquare.emit(this.focusedSquare)
+    if (emit) {
+      this.outputFocusedSquare.emit(this.focusedSquare)
+    }
     this.highlightWord(this.focusedSquare)
+  }
+
+  private findSquareByNumber(hintNumber: number) {
+    for (let row = 0; row < this.tableData.length; row++) {
+      for (let column = 0; column < this.tableData[row].length; column++) {
+        if (+this.tableData[row][column].getNumber() == hintNumber) {
+          return this.tableData[row][column]
+        }
+      }
+    }
+  }
+
+  public updateFocusedSquareByClickedHint(hintNumber: number) {
+    this.updateFocusedSquare(this.findSquareByNumber(hintNumber), false)
   }
 
   private writeToSquare(square: CrosswordSquare, data: string) {
@@ -246,6 +262,14 @@ export class TableComponent implements OnInit {
 
   public isLoaded() {
     return this._isLoaded
+  }
+
+  public getFocusedSquare() {
+    return this.focusedSquare
+  }
+
+  public setVertical(vertical: boolean) {
+    this._isVertical = vertical
   }
 
   public isVertical() {
