@@ -172,21 +172,9 @@ export class CrosswordComponent implements OnInit {
       window.alert("Game name must not be empty and must be alpha-numeric")
     } else {
       this.newGameName = escape(this.newGameName)
-      this.db.getGameRef(this.newGameName).once("value", (snap) => {
-        if (snap.val() == null) {
-          this.db.getGameRef(this.newGameName).set({
-            game_data: this.table.getSnapshotForDatabase(),
-            date: this.datepipe.transform(this.puzzleDate.value, 'MM/dd/yyyy'),
-            across_striked_hints: this.acrossHints.getSnapshotForDatabase(),
-            down_striked_hints: this.downHints.getSnapshotForDatabase(),
-          }).then(() => {
-            this.router.navigateByUrl("/?game=" + this.newGameName)
-            window.location.reload()
-          })
-        } else {
-          window.alert("Sorry, name is taken. Pick another one.")
-        }
-      })
+      this.db.createGame(
+        this.newGameName, this.table, this.datepipe.transform(this.puzzleDate.value, 'MM/dd/yyyy'),
+        this.acrossHints, this.downHints)
     }
   }
 

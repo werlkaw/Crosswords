@@ -1,5 +1,8 @@
 import { Injectable } from '@angular/core';
 import { AngularFireDatabase } from '@angular/fire/database';
+import { HintsComponent } from '../components/hints/hints.component';
+import { TableComponent } from '../components/table/table.component';
+import { Router } from '@angular/router';
 
 @Injectable({
   providedIn: 'root'
@@ -11,7 +14,7 @@ export class DatabaseService {
   static GAME_DATA_CHILD_NAME = "game_data"
   static ACROSS_STRIKED_CHILD_NAME = "across_striked_hints"
   static DOWN_STRIKED_CHILD_NAME = "down_striked_hints"
-  constructor(private db: AngularFireDatabase) { }
+  constructor(private db: AngularFireDatabase, private router: Router) { }
 
   public getGameRef(gameName: string) {
     return this.db.database.ref().child(DatabaseService.GAMES_CHILD_NAME).child(gameName)
@@ -40,5 +43,22 @@ export class DatabaseService {
   public getPuzzleRef(date: Date) {
     var date_string = date.getFullYear() + "/" + (date.getMonth() + 1) + "/" + date.getDate()
     return this.db.database.ref().child(DatabaseService.PUZZLES_CHILD_NAME).child(date_string)
+  }
+
+  public createGame(newGameName: string, table: TableComponent, gameDate: string,
+                    acrossHints: HintsComponent, downHints: HintsComponent) {
+    this.getGameRef(newGameName).once("value", (snap) => {
+      if (snap.val() == null) {
+        this.getGameRef(newGameName).set({
+          game_data: table.getSnapshotForDatabase(),
+          date: gameDate,
+          across_striked_hints: acrossHints.getSnapshotForDatabase(),
+          down_striked_hints: downHints.getSnapshotForDatabase(),
+        }).then(() => {
+          this.router.navigateByUrl("/?game=" + newGameName)
+          window.location.reload()
+        })
+      }
+    })
   }
 }
