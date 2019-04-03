@@ -55,8 +55,10 @@ export class DatabaseService {
           across_striked_hints: acrossHints.getSnapshotForDatabase(),
           down_striked_hints: downHints.getSnapshotForDatabase(),
         }).then(() => {
-          this.router.navigateByUrl("/?game=" + newGameName)
-          window.location.reload()
+          this.router.navigateByUrl("?game=" + newGameName)
+          setTimeout(() => {
+            window.location.reload()
+          }, 100)
         })
       }
     })

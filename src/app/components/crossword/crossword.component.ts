@@ -163,7 +163,9 @@ export class CrosswordComponent implements OnInit {
 
   private refreshPage() {
     this.router.navigate([""])
-    window.location.reload()
+    setTimeout(() => {
+      window.location.reload()
+    }, 100)
   }
 
   /* startNewGame creates a new collaborative game and redirect the URL to that game's page. */
