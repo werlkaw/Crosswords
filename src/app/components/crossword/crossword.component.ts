@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild, ElementRef, Output, EventEmitter } from '@angular/core';
+import { Component, OnInit, ViewChild, ElementRef, Output, EventEmitter, Renderer2 } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 
 import { TableService } from '../../services/table.service';
@@ -33,7 +33,7 @@ export class CrosswordComponent implements OnInit {
   private newGameName: string = ""
 
   constructor(private tableService: TableService, private db: DatabaseService, private route: ActivatedRoute,
-              private router: Router, private datepipe: DatePipe) {}
+              private router: Router, private datepipe: DatePipe, private renderer: Renderer2) {}
 
   ngOnInit() {
     this.route.queryParams.subscribe(queryparams => {
@@ -180,7 +180,15 @@ export class CrosswordComponent implements OnInit {
     }
   }
 
-  populateTableAndHints(data: Object) {
+  private resizeHintsBox() {
+    var acrossHintsElem = document.getElementById(this.acrossHints.hintWrapperId)
+    var downHintsElem = document.getElementById(this.downHints.hintWrapperId)
+    var tableHeight = document.getElementById(this.table.puzzleTableId).offsetHeight + "px"
+    this.renderer.setStyle(acrossHintsElem, "height", tableHeight)
+    this.renderer.setStyle(downHintsElem, "height", tableHeight)
+  }
+
+  private populateTableAndHints(data: Object) {
     this.table.populate(this.parser.parseFromString(data[CROSSWORD_KEY], "text/html"))
     this.acrossHints.setLabel("Across")
     this.downHints.setLabel("Down")
@@ -188,6 +196,9 @@ export class CrosswordComponent implements OnInit {
     this.downHints.populate(this.parser.parseFromString(data[DOWN_HINTS_KEY], "text/html"))
 
     this.startGameListeners()
+    setTimeout(() => {
+      this.resizeHintsBox()
+    }, 100)
   }
 
   /* showCrossword fetches a crossword puzzle from the database or from the API and populates all components. */

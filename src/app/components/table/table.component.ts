@@ -20,6 +20,7 @@ export class TableComponent implements OnInit {
   private focusedSquare: CrosswordSquare
   private successAudio: HTMLAudioElement = new Audio()
   private playedSuccessAudio = false
+  public puzzleTableId: string = "puzzle-table-id"
   public tableData: CrosswordSquare[][] = new Array()
 
   constructor() {

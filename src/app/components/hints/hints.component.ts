@@ -48,7 +48,6 @@ export class HintsComponent implements OnInit {
     var hintsContainer = document.getElementById(this.hintWrapperId)
     hintElem.style.backgroundColor = HIGHLIGHT_HINT_BACKGROUND
     if (scroll) {
-      console.log(hintElem.offsetTop)
       hintsContainer.scrollTop = hintElem.offsetTop
     }
     if (this.htmlHelper.isMobile()) {

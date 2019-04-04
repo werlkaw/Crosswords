@@ -1,6 +1,6 @@
 <div  class="add-padding">
   <input id="puzzElem" class="hidden-input" type="text" #puzzleInput (keydown)="onKeyDown($event)" (input)="onInputChange($event)" maxlength="1">
-  <table id="PuzTable" class="PuzTable PT1 PuzSpace">
+  <table id="{{puzzleTableId}}" class="PuzTable PT1 PuzSpace">
     <tbody>
       <tr *ngFor="let row of tableData">
         <td *ngFor="let item of row" [id]="item.getIdForHtml()" [innerHtml]="item.toHtml()" [ngClass]="item.getCssClasses().toHtmlClassList()" (click)="onSquareClick(item)"></td>
