@@ -100,10 +100,6 @@ export class TableComponent implements OnInit {
     }
     event.target.value = ""
 
-    // Hack for mobile browsers.
-    this.puzzleInput.nativeElement.blur()
-    this.puzzleInput.nativeElement.focus()
-
     // Checks if the puzzle is completed.
     this.checkFinishedState()
   }
