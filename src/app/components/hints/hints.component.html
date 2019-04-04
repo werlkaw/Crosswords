@@ -1,7 +1,7 @@
 <table *ngIf="hintData.size > 0" class="add-padding hints-hideable">
     <th><b>{{label}}</b></th>
     <tr>
-        <div id="hints-main">
+        <div id="{{hintWrapperId}}" class="hints-main">
             <table class="hints-table" cellspacing="0">
                 <tr [id]="getIdForHtml(item.value)" *ngFor="let item of hintData | keyvalue" [ngClass]="{striked: item.value.isStrikedOut()}" (click)="this.clickedHint.emit(item.value.getNumber())">
                     <td class="hints-number">{{item.value.getNumber()}}.&nbsp;</td>

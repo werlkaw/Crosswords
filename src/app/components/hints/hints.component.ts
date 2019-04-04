@@ -3,7 +3,6 @@ import { Hint, HintBuilder } from 'src/app/models/crosswordHint.type';
 import { HtmlHelperService } from 'src/app/services/html-helper.service';
 
 const HIGHLIGHT_HINT_BACKGROUND = "#D3D3D3"
-const HINTS_MAIN_ID = "hints-main"
 
 @Component({
   selector: 'app-hints',
@@ -15,6 +14,7 @@ export class HintsComponent implements OnInit {
   @Output() hintForMobile = new EventEmitter<string>();
   @Output() clickedHint = new EventEmitter<number>();
   public label: string
+  public hintWrapperId: string
   public hintData: Map<number, Hint> = new Map()
   private focusedHint: Hint
 
@@ -24,6 +24,7 @@ export class HintsComponent implements OnInit {
 
   public setLabel(label: string): void {
     this.label = label
+    this.hintWrapperId = label + "WrapperId"
   }
 
   public getHintData() {
@@ -44,9 +45,10 @@ export class HintsComponent implements OnInit {
     // Highlight and scroll to hint in list.
     var hintElemId = this.getIdForHtml(this.focusedHint)
     var hintElem = document.getElementById(hintElemId)
-    var hintsContainer = document.getElementById(HINTS_MAIN_ID)
+    var hintsContainer = document.getElementById(this.hintWrapperId)
     hintElem.style.backgroundColor = HIGHLIGHT_HINT_BACKGROUND
     if (scroll) {
+      console.log(hintElem.offsetTop)
       hintsContainer.scrollTop = hintElem.offsetTop
     }
     if (this.htmlHelper.isMobile()) {
