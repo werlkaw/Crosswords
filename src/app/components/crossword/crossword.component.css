@@ -28,6 +28,10 @@
     font-size: 15px;
 }
 
-#table-td {
+#board-hints-table tr td {
     vertical-align: top;
+}
+
+#board-hints-table {
+    height: 90%;
 }

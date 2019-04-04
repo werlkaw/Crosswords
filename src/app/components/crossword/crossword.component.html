@@ -22,10 +22,10 @@
         </tr>
     </table>
     <div [hidden]="!table.isLoaded()">
-        <table>
+        <table id="board-hints-table">
         <tr id="current-hint-box">{{ this.table.isVertical() ? this.downHints.getFocusedHint() : this.acrossHints.getFocusedHint() }}</tr>
         <tr>
-            <td id="table-td"><app-table #table (outputChangedSquare)="updatedSquare($event)" (outputFocusedSquare)="updateFocusedHint($event)"></app-table></td>
+            <td><app-table #table (outputChangedSquare)="updatedSquare($event)" (outputFocusedSquare)="updateFocusedHint($event)"></app-table></td>
             <td><app-hints #acrossHints (hintForMobile)="outputToApp($event)" (clickedHint)="focusWordByClickedHint($event, false)"></app-hints></td>
             <td><app-hints #downHints (hintForMobile)="outputToApp($event)" (clickedHint)="focusWordByClickedHint($event, true)"></app-hints></td>
         </tr>
