@@ -1,29 +1,33 @@
 <img src="assets/images/loading.gif" [hidden]="table.isLoaded()" class="centered"/>
 <div class="white-background" style="width: 100%"></div>
 <div [hidden]="!table.isLoaded()">
-    <div [hidden]="isCheater" class="arrange-horizontally">
+    <table>
+        <tr>
+    <td [hidden]="isCheater">
     <mat-form-field>
         <input matInput disabled="{{isPlayingGame()}}" #dateinput [matDatepicker]="picker" placeholder="Choose a date" [ngModel]="puzzleDate.value" (dateChange)="showNewPuzzle()">
         <mat-datepicker-toggle matSuffix [for]="picker" [disabled]="isPlayingGame()?'':null"></mat-datepicker-toggle>
         <mat-datepicker #picker></mat-datepicker>
     </mat-form-field>
-    </div>
-    <div *ngIf="isPlayingGame()" class="arrange-horizontally">
+    </td>
+    <td *ngIf="isPlayingGame()">
         <button class="update-puzzle-button" mat-button (click)="refreshPage()">Exit Game</button>
-    </div>
-    <div *ngIf="!isPlayingGame()" class="input-field arrange-horizontally">
+    </td>
+    <td *ngIf="!isPlayingGame()" class="input-field">
         <mat-form-field>
             <input matInput (keyup.enter)="startNewGame()" placeholder="Game Name" [(ngModel)]="newGameName">
         </mat-form-field>
         <button class="update-puzzle-button" type="submit" mat-button (click)="startNewGame()">Start New Game</button>
-    </div>
+    </td>
+        </tr>
+    </table>
     <div [hidden]="!table.isLoaded()">
         <table>
         <tr id="current-hint-box">{{ this.table.isVertical() ? this.downHints.getFocusedHint() : this.acrossHints.getFocusedHint() }}</tr>
         <tr>
-            <app-table #table (outputChangedSquare)="updatedSquare($event)" (outputFocusedSquare)="updateFocusedHint($event)"></app-table>
-            <app-hints #acrossHints (hintForMobile)="outputToApp($event)" (clickedHint)="focusWordByClickedHint($event, false)"></app-hints>
-            <app-hints #downHints (hintForMobile)="outputToApp($event)" (clickedHint)="focusWordByClickedHint($event, true)"></app-hints>
+            <td id="table-td"><app-table #table (outputChangedSquare)="updatedSquare($event)" (outputFocusedSquare)="updateFocusedHint($event)"></app-table></td>
+            <td><app-hints #acrossHints (hintForMobile)="outputToApp($event)" (clickedHint)="focusWordByClickedHint($event, false)"></app-hints></td>
+            <td><app-hints #downHints (hintForMobile)="outputToApp($event)" (clickedHint)="focusWordByClickedHint($event, true)"></app-hints></td>
         </tr>
         </table>
     </div>
