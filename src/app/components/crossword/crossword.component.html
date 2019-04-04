@@ -3,7 +3,7 @@
 <div [hidden]="!table.isLoaded()">
     <div [hidden]="isCheater" class="arrange-horizontally">
     <mat-form-field>
-        <input matInput [attr.disabled]="isPlayingGame()?'':null" #dateinput [matDatepicker]="picker" placeholder="Choose a date" [ngModel]="puzzleDate.value" (dateChange)="showNewPuzzle()">
+        <input matInput disabled="{{isPlayingGame()}}" #dateinput [matDatepicker]="picker" placeholder="Choose a date" [ngModel]="puzzleDate.value" (dateChange)="showNewPuzzle()">
         <mat-datepicker-toggle matSuffix [for]="picker" [disabled]="isPlayingGame()?'':null"></mat-datepicker-toggle>
         <mat-datepicker #picker></mat-datepicker>
     </mat-form-field>

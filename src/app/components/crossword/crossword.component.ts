@@ -123,7 +123,7 @@ export class CrosswordComponent implements OnInit {
     this.hintForMobile.emit(hint)
   }
 
-  isPlayingGame(): boolean {
+  public isPlayingGame(): boolean {
     return this.playingGameName != "" && this.playingGameName != null
   }
 
