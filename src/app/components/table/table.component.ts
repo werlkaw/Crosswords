@@ -1,6 +1,5 @@
 import { Component, OnInit, ViewEncapsulation, ViewChild, ElementRef, Output, EventEmitter } from '@angular/core';
 import { CrosswordSquare, HintGroup } from 'src/app/models/crosswordSquare.type';
-import { HtmlHelperService } from 'src/app/services/html-helper.service';
 
 const SELECTED_SQUARE_CLASS = "selected-square"
 const HIGHLIGHTED_WORD_CLASS = "highlighted-word"
@@ -23,7 +22,7 @@ export class TableComponent implements OnInit {
   private playedSuccessAudio = false
   public tableData: CrosswordSquare[][] = new Array()
 
-  constructor(private htmlHelper: HtmlHelperService) {
+  constructor() {
     this.successAudio.src = "../../assets/success.wav"
   }
 
@@ -108,14 +107,6 @@ export class TableComponent implements OnInit {
     this.checkFinishedState()
   }
 
-  /* movePuzzleInput repositions the hidden input to be close to the selected square.
-     This keeps mobile clients from jumping around when we re-focus on the input. */
-  private movePuzzleInput(clickedSquare: CrosswordSquare) {
-    var clickedSquareElem = document.getElementById(clickedSquare.getIdForHtml())
-    var puzzElem = document.getElementById("puzzElem")
-    this.htmlHelper.placeAbove(clickedSquareElem, puzzElem)
-  }
-
   public onSquareClick(clickedSquare: CrosswordSquare) {
     if (!clickedSquare.isWritable()) {
       return
@@ -123,7 +114,6 @@ export class TableComponent implements OnInit {
     if (clickedSquare == this.focusedSquare) {
       this._isVertical = !this._isVertical
     }
-    this.movePuzzleInput(clickedSquare)
     this.puzzleInput.nativeElement.focus()
     this.updateFocusedSquare(clickedSquare)
   }
