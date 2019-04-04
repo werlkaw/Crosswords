@@ -25,7 +25,6 @@ export class CrosswordComponent implements OnInit {
   @ViewChild('acrossHints') acrossHints: HintsComponent
   @ViewChild('downHints') downHints: HintsComponent
   @ViewChild('dateinput') dateinput: ElementRef
-  @Output() hintForMobile = new EventEmitter<string>()
   public puzzleDate: FormControl = new FormControl(new Date())
 
   private parser: DOMParser = new DOMParser()
@@ -119,10 +118,6 @@ export class CrosswordComponent implements OnInit {
 
   getDateStringFromDate(date: Date): string {
     return (date.getMonth() + 1) + "/" + date.getDate() + "/" + date.getFullYear()
-  }
-
-  public outputToApp(hint: string) {
-    this.hintForMobile.emit(hint)
   }
 
   public isPlayingGame(): boolean {

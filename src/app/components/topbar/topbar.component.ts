@@ -11,22 +11,10 @@ import { FirebaseUserService } from 'src/app/services/auth/firebase-user.service
   styleUrls: ['./topbar.component.css']
 })
 export class TopbarComponent implements OnInit {
-  public currentHint: string = ""
+  public gameTitle: string = "CrossWithFriends"
   constructor(private htmlHelper: HtmlHelperService, private _router: Router,
               public firebaseUser: FirebaseUserService) { }
 
   ngOnInit() {
-  }
-
-  public updateHint(hint: string) {
-    this.currentHint = hint
-  }
-
-  public showTopNavText() {
-    if (this.htmlHelper.isMobile() && this.currentHint) {
-      return this.currentHint
-    } else {
-      return "CrossWithFriends"
-    }
   }
 }

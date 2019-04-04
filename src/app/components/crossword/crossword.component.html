@@ -26,8 +26,8 @@
         <tr id="current-hint-box">{{ this.table.isVertical() ? this.downHints.getFocusedHint() : this.acrossHints.getFocusedHint() }}</tr>
         <tr>
             <td><app-table #table (outputChangedSquare)="updatedSquare($event)" (outputFocusedSquare)="updateFocusedHint($event)"></app-table></td>
-            <td><app-hints #acrossHints (hintForMobile)="outputToApp($event)" (clickedHint)="focusWordByClickedHint($event, false)"></app-hints></td>
-            <td><app-hints #downHints (hintForMobile)="outputToApp($event)" (clickedHint)="focusWordByClickedHint($event, true)"></app-hints></td>
+            <td><app-hints #acrossHints (clickedHint)="focusWordByClickedHint($event, false)"></app-hints></td>
+            <td><app-hints #downHints (clickedHint)="focusWordByClickedHint($event, true)"></app-hints></td>
         </tr>
         </table>
     </div>

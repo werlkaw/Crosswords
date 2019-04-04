@@ -7,13 +7,8 @@ import { TopbarComponent } from '../topbar/topbar.component';
   styleUrls: ['./home.component.css']
 })
 export class HomeComponent implements OnInit {
-  @ViewChild('topbar') topbar: TopbarComponent
   constructor() { }
 
   ngOnInit() {
-  }
-
-  fillTopBarHint(hint: string) {
-    this.topbar.updateHint(hint)
   }
 }
