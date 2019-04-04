@@ -29,6 +29,7 @@ export class TableComponent implements OnInit {
   ngOnInit() {}
 
   private updateFocusedSquare(square: CrosswordSquare, emit: boolean = true) {
+    this.puzzleInput.nativeElement.focus()
     this.focusedSquare = square
     if (emit) {
       this.outputFocusedSquare.emit(this.focusedSquare)
@@ -114,7 +115,6 @@ export class TableComponent implements OnInit {
     if (clickedSquare == this.focusedSquare) {
       this._isVertical = !this._isVertical
     }
-    this.puzzleInput.nativeElement.focus()
     this.updateFocusedSquare(clickedSquare)
   }
 
