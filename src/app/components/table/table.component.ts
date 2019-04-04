@@ -80,7 +80,6 @@ export class TableComponent implements OnInit {
   /* onKeyDown captures when the backspace key is pressed. */
   public onKeyDown(event: any) {
     var input: string = event.key
-    console.log(input)
     if (input == "Backspace") {
       // If the current square is empty, delete the previous square.
       if (!this.focusedSquare.getLetter()) {
