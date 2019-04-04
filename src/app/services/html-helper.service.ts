@@ -4,6 +4,11 @@ import { Injectable } from '@angular/core';
   providedIn: 'root'
 })
 export class HtmlHelperService {
+  public runAfterRender(f: () => void): any {
+    setTimeout(() => {
+      f()
+    }, 100)
+  }
 
   constructor() { }
 

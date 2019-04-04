@@ -1,5 +1,6 @@
 import { Component, OnInit, ViewEncapsulation, ViewChild, ElementRef, Output, EventEmitter } from '@angular/core';
 import { CrosswordSquare, HintGroup } from 'src/app/models/crosswordSquare.type';
+import { HtmlHelperService } from 'src/app/services/html-helper.service';
 
 const SELECTED_SQUARE_CLASS = "selected-square"
 const HIGHLIGHTED_WORD_CLASS = "highlighted-word"
@@ -23,7 +24,7 @@ export class TableComponent implements OnInit {
   public puzzleTableId: string = "puzzle-table-id"
   public tableData: CrosswordSquare[][] = new Array()
 
-  constructor() {
+  constructor(private htmlHelper: HtmlHelperService) {
     this.successAudio.src = "../../assets/success.wav"
   }
 
@@ -275,7 +276,7 @@ export class TableComponent implements OnInit {
   }
 
   private showMessage(message: string) {
-    setTimeout(() => { window.alert(message)}, 100)
+    this.htmlHelper.runAfterRender(() => { window.alert(message)})
   }
 
   // Checks if the puzzle is completed. If it is, runs some end-game code.

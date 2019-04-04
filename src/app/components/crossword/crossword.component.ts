@@ -9,6 +9,7 @@ import { FormControl } from '@angular/forms';
 import { CrosswordSquare } from 'src/app/models/crosswordSquare.type';
 import { DatabaseService } from 'src/app/services/database.service';
 import { DatePipe } from '@angular/common';
+import { HtmlHelperService } from 'src/app/services/html-helper.service';
 
 const CROSSWORD_KEY = "crossword"
 const ACROSS_HINTS_KEY = "acrossHints"
@@ -33,7 +34,8 @@ export class CrosswordComponent implements OnInit {
   private newGameName: string = ""
 
   constructor(private tableService: TableService, private db: DatabaseService, private route: ActivatedRoute,
-              private router: Router, private datepipe: DatePipe, private renderer: Renderer2) {}
+              private router: Router, private datepipe: DatePipe, private renderer: Renderer2,
+              private htmlHelper: HtmlHelperService) {}
 
   ngOnInit() {
     this.route.queryParams.subscribe(queryparams => {
@@ -58,11 +60,11 @@ export class CrosswordComponent implements OnInit {
         // with the correct queryParams. If the game is defined and this is the
         // first subscribe event, wait 100ms before checking if we are already
         // playing a game (from the second sub event).
-        setTimeout (() => {
+        this.htmlHelper.runAfterRender(() => {
           if (!this.isPlayingGame()) {
             this.showCrossword(this.puzzleDate.value)
           }
-        }, 100)
+        })
       }
     })
   }
@@ -163,9 +165,9 @@ export class CrosswordComponent implements OnInit {
 
   private refreshPage() {
     this.router.navigate([""])
-    setTimeout(() => {
+    this.htmlHelper.runAfterRender(() => {
       window.location.reload()
-    }, 100)
+    })
   }
 
   /* startNewGame creates a new collaborative game and redirect the URL to that game's page. */
@@ -196,9 +198,9 @@ export class CrosswordComponent implements OnInit {
     this.downHints.populate(this.parser.parseFromString(data[DOWN_HINTS_KEY], "text/html"))
 
     this.startGameListeners()
-    setTimeout(() => {
+    this.htmlHelper.runAfterRender(() => {
       this.resizeHintsBox()
-    }, 100)
+    })
   }
 
   /* showCrossword fetches a crossword puzzle from the database or from the API and populates all components. */
