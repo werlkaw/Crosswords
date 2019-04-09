@@ -1,4 +1,9 @@
-<div class="app-wrapper">
-    <app-topbar #topbar></app-topbar>
+<app-topbar (menuClick)="sideNav.toggle()" #topbar></app-topbar>
+<mat-sidenav-container [hasBackdrop]="false">
+<mat-sidenav #sideNav>
+    Hi there. Still need to add more things here...
+</mat-sidenav>
+<mat-sidenav-content (click)="sideNav.close()">
     <router-outlet></router-outlet>
-</div>
+</mat-sidenav-content>
+</mat-sidenav-container>

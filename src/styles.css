@@ -40,3 +40,7 @@ body{font-family:'Segoe UI',Tahoma,Helvetica,Sans-Serif;font-size:12px;color:#33
 .inline-block {
     display: inline-block;
 }
+
+.pointer-cursor {
+    cursor: pointer;
+}

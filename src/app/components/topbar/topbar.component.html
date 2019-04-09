@@ -1,20 +1,23 @@
 <div class="header fixed-header">
   <mat-toolbar color="primary" class="logo-text fill-width">
       <div style="width: 100%;">
-        <table style="width: 100%">
+        <table style="width: 100%;">
           <tr>
-          <td style="width:1px;white-space:nowrap;">
-          <div *ngIf="firebaseUser.loggedIn()" class="profile-pic-container">
-              <img class="profile-pic" src={{firebaseUser.getUserPhotoUrl()}}>
-          </div>
+          <td style="width:1px;white-space:nowrap; padding-right: 10px;">
+            <mat-icon class="pointer-cursor" (click)="menuClick.emit()">menu</mat-icon>
           </td>
           <td>
           <div class="container">
               {{ gameTitle }}
           </div>
           </td>
-          <td>
-          <div *ngIf="firebaseUser.loggedIn()" (click)="firebaseUser.signOut()" class="signout-button">Signout</div>
+          <td style="width:1px;white-space:nowrap;">
+          <div *ngIf="firebaseUser.loggedIn()" class="profile-pic-container" mat-icon-button [matMenuTriggerFor]="accountOptions">
+              <button mat-button>Account</button>
+          </div>
+          <mat-menu #accountOptions="matMenu">
+            <button (click)="firebaseUser.signOut()" mat-menu-item>Sign Out</button>
+          </mat-menu>
           </td>
           </tr>
         </table>

@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Output, EventEmitter } from '@angular/core';
 import { FirebaseUserService } from 'src/app/services/auth/firebase-user.service';
 
 @Component({
@@ -7,6 +7,7 @@ import { FirebaseUserService } from 'src/app/services/auth/firebase-user.service
   styleUrls: ['./topbar.component.css']
 })
 export class TopbarComponent implements OnInit {
+  @Output() menuClick  = new EventEmitter()
   public gameTitle: string = "CrossWithFriends"
   constructor(public firebaseUser: FirebaseUserService) { }
 
