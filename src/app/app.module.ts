@@ -18,6 +18,7 @@ import { LoginComponent } from './components/login/login.component';
 import { HomeComponent } from './components/home/home.component';
 import { AppRoutes } from './app.routes';
 import { AngularFireAuthModule } from '@angular/fire/auth';
+import { SideMenuComponent } from './components/side-menu/side-menu.component';
 
 @NgModule({
   declarations: [
@@ -27,7 +28,8 @@ import { AngularFireAuthModule } from '@angular/fire/auth';
     HintsComponent,
     TopbarComponent,
     LoginComponent,
-    HomeComponent
+    HomeComponent,
+    SideMenuComponent
   ],
   imports: [
     AngularFireModule.initializeApp(environment.firebase, 'crosswords'),
