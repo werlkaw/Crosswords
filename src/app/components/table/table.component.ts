@@ -64,7 +64,6 @@ export class TableComponent implements OnInit {
 
   /* moveWithArrow changes the focused square based on the directional arrow pressed. */
   private moveWithArrow(direction: string) {
-    var nextSquare = this.focusedSquare
     var [row, col] = this.focusedSquare.getTableLocation()
     if (direction == "ArrowDown" && row + 1 < this.tableData.length && this.tableData[row + 1][col].isWritable()) {
       this.updateFocusedSquare(this.tableData[row+1][col])
