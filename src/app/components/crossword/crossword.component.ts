@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild, ElementRef, Output, EventEmitter, Renderer2 } from '@angular/core';
+import { Component, OnInit, ViewChild, ElementRef, Renderer2 } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 
 import { TableService } from '../../services/table.service';
@@ -109,7 +109,7 @@ export class CrosswordComponent implements OnInit {
   public updateFocusedHint(focusedSquare: CrosswordSquare, scroll: boolean = true) {
     this.acrossHints.clearHighlightedHints()
     this.downHints.clearHighlightedHints()
-    if (this.table.isVertical()) {
+    if (this.table.getIsVertical()) {
       this.downHints.setFocusedHint(focusedSquare.getDownGroup().getHintNumber(), scroll)
     } else {
       this.acrossHints.setFocusedHint(focusedSquare.getAcrossGroup().getHintNumber(), scroll)
@@ -134,7 +134,7 @@ export class CrosswordComponent implements OnInit {
         // puzzle that has previously been solved.
         var firstLoad = true
         return (snap) => {
-          if (this.table.isLoaded()) {
+          if (this.table.getIsLoaded()) {
             this.table.updateFromDatabase(snap.child(DatabaseService.GAME_DATA_CHILD_NAME).val(), firstLoad)
             this.acrossHints.updateFromDatabase(snap.child(DatabaseService.ACROSS_STRIKED_CHILD_NAME).val())
             this.downHints.updateFromDatabase(snap.child(DatabaseService.DOWN_STRIKED_CHILD_NAME).val())

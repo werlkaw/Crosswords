@@ -3,6 +3,7 @@ import { AngularFireDatabase } from '@angular/fire/database';
 import { HintsComponent } from '../components/hints/hints.component';
 import { TableComponent } from '../components/table/table.component';
 import { Router } from '@angular/router';
+import { FirebaseUserService } from './auth/firebase-user.service';
 
 @Injectable({
   providedIn: 'root'
@@ -14,7 +15,7 @@ export class DatabaseService {
   static GAME_DATA_CHILD_NAME = "game_data"
   static ACROSS_STRIKED_CHILD_NAME = "across_striked_hints"
   static DOWN_STRIKED_CHILD_NAME = "down_striked_hints"
-  constructor(private db: AngularFireDatabase, private router: Router) { }
+  constructor(private db: AngularFireDatabase, private router: Router, private firebaseUser: FirebaseUserService) { }
 
   public getGameRef(gameName: string) {
     return this.db.database.ref().child(DatabaseService.GAMES_CHILD_NAME).child(gameName)
@@ -50,6 +51,8 @@ export class DatabaseService {
     this.getGameRef(newGameName).once("value", (snap) => {
       if (snap.val() == null) {
         this.getGameRef(newGameName).set({
+          owner: this.firebaseUser.getUserId(),
+          collaborators: [this.firebaseUser.getUserId()],
           game_data: table.getSnapshotForDatabase(),
           date: gameDate,
           across_striked_hints: acrossHints.getSnapshotForDatabase(),

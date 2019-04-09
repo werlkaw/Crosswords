@@ -1,8 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { HtmlHelperService } from 'src/app/services/html-helper.service';
-import { AngularFireAuth } from '@angular/fire/auth';
-import { Router } from '@angular/router';
-import { PathConstants } from 'src/app/constants/PathConstants';
 import { FirebaseUserService } from 'src/app/services/auth/firebase-user.service';
 
 @Component({
@@ -12,8 +8,7 @@ import { FirebaseUserService } from 'src/app/services/auth/firebase-user.service
 })
 export class TopbarComponent implements OnInit {
   public gameTitle: string = "CrossWithFriends"
-  constructor(private htmlHelper: HtmlHelperService, private _router: Router,
-              public firebaseUser: FirebaseUserService) { }
+  constructor(public firebaseUser: FirebaseUserService) { }
 
   ngOnInit() {
   }

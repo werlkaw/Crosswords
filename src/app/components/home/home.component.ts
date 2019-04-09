@@ -1,5 +1,4 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { TopbarComponent } from '../topbar/topbar.component';
 
 @Component({
   selector: 'app-home',

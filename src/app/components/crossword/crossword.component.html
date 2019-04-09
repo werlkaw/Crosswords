@@ -1,6 +1,6 @@
-<img src="assets/images/loading.gif" [hidden]="table.isLoaded()" class="centered"/>
+<img src="assets/images/loading.gif" [hidden]="table.getIsLoaded()" class="centered"/>
 <div class="white-background" style="width: 100%"></div>
-<div [hidden]="!table.isLoaded()">
+<div [hidden]="!table.getIsLoaded()">
     <table>
         <tr>
     <td [hidden]="isCheater">
@@ -21,9 +21,9 @@
     </td>
         </tr>
     </table>
-    <div [hidden]="!table.isLoaded()">
+    <div [hidden]="!table.getIsLoaded()">
         <table id="board-hints-table">
-        <tr id="current-hint-box">{{ this.table.isVertical() ? this.downHints.getFocusedHint() : this.acrossHints.getFocusedHint() }}</tr>
+        <tr id="current-hint-box">{{ this.table.getIsVertical() ? this.downHints.getFocusedHint() : this.acrossHints.getFocusedHint() }}</tr>
         <tr>
             <td><app-table #table (outputChangedSquare)="updatedSquare($event)" (outputFocusedSquare)="updateFocusedHint($event)"></app-table></td>
             <td><app-hints #acrossHints (clickedHint)="focusWordByClickedHint($event, false)"></app-hints></td>

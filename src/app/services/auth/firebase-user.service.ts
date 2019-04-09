@@ -8,26 +8,30 @@ import { PathConstants } from 'src/app/constants/PathConstants';
   providedIn: 'root'
 })
 export class FirebaseUserService {
-  private _user: firebase.User
+  private user: firebase.User
 
-  constructor(private _firebaseAuth: AngularFireAuth, private _router: Router) {
-    this._firebaseAuth.authState.subscribe((authState) => {
-      this._user = authState
+  constructor(private firebaseAuth: AngularFireAuth, private router: Router) {
+    this.firebaseAuth.authState.subscribe((authState) => {
+      this.user = authState
     });
   }
 
   public loggedIn() {
-    return this._user != null
+    return this.user != null
+  }
+
+  public getUserId() {
+    return this.user.uid
   }
 
   public getUserPhotoUrl() {
-    return this._user.photoURL
+    return this.user.photoURL
   }
 
   private signInWithProvider(provider) {
-    this._firebaseAuth.auth.signInWithPopup(provider)
+    this.firebaseAuth.auth.signInWithPopup(provider)
     .then((result) => {
-      this._router.navigate([PathConstants.HOME_PATH]);
+      this.router.navigate([PathConstants.HOME_PATH]);
     })
     .catch((error) => {
       console.log(error.code)
@@ -43,8 +47,8 @@ export class FirebaseUserService {
   }
 
   public signOut() {
-    this._firebaseAuth.auth.signOut().then(() => {
-      this._router.navigate([PathConstants.LOGIN_PATH]);
+    this.firebaseAuth.auth.signOut().then(() => {
+      this.router.navigate([PathConstants.LOGIN_PATH]);
     }).catch((error) => {
       console.log(error)
     });

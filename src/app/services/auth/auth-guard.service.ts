@@ -14,16 +14,16 @@ import { PathConstants } from '../../constants/PathConstants';
 })
 export class AuthGuardService implements CanActivate {
 
-  constructor(private _angularFireAuth: AngularFireAuth, private _router: Router) { }
+  constructor(private angularFireAuth: AngularFireAuth, private router: Router) { }
 
   canActivate(): Observable<boolean> {
-    return this._angularFireAuth.authState
+    return this.angularFireAuth.authState
       .take(1)
       .map((authState) => !!authState)
       .do(authenticated => {
         if (!authenticated) {
           console.log("not authenticated! redirecting...")
-          this._router.navigate([PathConstants.LOGIN_PATH]);
+          this.router.navigate([PathConstants.LOGIN_PATH]);
         }
       });
   }

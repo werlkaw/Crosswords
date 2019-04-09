@@ -1,4 +1,4 @@
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 
@@ -7,13 +7,13 @@ import { Observable } from 'rxjs';
 })
 export class TableService {
 
-  constructor(private _http: HttpClient) { }
+  constructor(private http: HttpClient) { }
 
   /** fetchCrossword will return the crossword table and hints data.
    *  Parameters:
    *    date (string): String representation of the date for the puzzle. mm/dd/yyyy format.
   */
   fetchCrossword(date: string): Observable<Object> {
-    return this._http.get("https://juanbustamante.org/crosswords/get-crossword.php?date=" + date, { responseType: "json" })
+    return this.http.get("https://juanbustamante.org/crosswords/get-crossword.php?date=" + date, { responseType: "json" })
   }
 }

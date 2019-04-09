@@ -16,8 +16,8 @@ export class TableComponent implements OnInit {
   @Output() outputFocusedSquare = new EventEmitter<CrosswordSquare>();
   @ViewChild("puzzleInput") puzzleInput: ElementRef
 
-  private _isVertical: boolean = false
-  private _isLoaded: boolean
+  private isVertical: boolean = false
+  private isLoaded: boolean
   private focusedSquare: CrosswordSquare
   private successAudio: HTMLAudioElement = new Audio()
   private playedSuccessAudio = false
@@ -109,7 +109,7 @@ export class TableComponent implements OnInit {
       return
     }
     if (clickedSquare == this.focusedSquare) {
-      this._isVertical = !this._isVertical
+      this.isVertical = !this.isVertical
     }
     this.updateFocusedSquare(clickedSquare)
   }
@@ -167,7 +167,7 @@ export class TableComponent implements OnInit {
   private highlightWord(clicked_square: CrosswordSquare): void {
     this.removeHighlightsFromTable()
 
-    let wordToHighlight = this._isVertical ? this.getDownWord(clicked_square) : this.getHorizontalWord(clicked_square)
+    let wordToHighlight = this.isVertical ? this.getDownWord(clicked_square) : this.getHorizontalWord(clicked_square)
     for (let square of wordToHighlight) {
       if (square != clicked_square) {
         square.getCssClasses().addClass(HIGHLIGHTED_WORD_CLASS)
@@ -180,7 +180,7 @@ export class TableComponent implements OnInit {
   /* getNextSquare focuses the next square relative to the current square. */
   private focusNextSquare(current_square: CrosswordSquare): void {
     let [next_row, next_col] = current_square.getTableLocation()
-    if (this._isVertical) {
+    if (this.isVertical) {
       next_row++
     } else {
       next_col++
@@ -200,7 +200,7 @@ export class TableComponent implements OnInit {
   /* focusPreviousSquare focuses the previous square relative to the current square. */
   private focusPreviousSquare(current_square: CrosswordSquare): void {
     let [next_row, next_col] = current_square.getTableLocation()
-    if (this._isVertical) {
+    if (this.isVertical) {
       next_row--
     } else {
       next_col--
@@ -246,8 +246,8 @@ export class TableComponent implements OnInit {
     }
   }
 
-  public isLoaded() {
-    return this._isLoaded
+  public getIsLoaded() {
+    return this.isLoaded
   }
 
   public getFocusedSquare() {
@@ -255,11 +255,11 @@ export class TableComponent implements OnInit {
   }
 
   public setVertical(vertical: boolean) {
-    this._isVertical = vertical
+    this.isVertical = vertical
   }
 
-  public isVertical() {
-    return this._isVertical
+  public getIsVertical() {
+    return this.isVertical
   }
 
   public getSnapshotForDatabase(): string[][] {
@@ -331,7 +331,7 @@ export class TableComponent implements OnInit {
 
   public populate(data: Document) {
     // Initialize data and answers to empty arrays
-    this._isLoaded = false
+    this.isLoaded = false
     this.tableData = new Array()
     let rows = data.getElementsByTagName("tr")
     for (let row = 0; row < rows.length; row++) {
@@ -363,6 +363,6 @@ export class TableComponent implements OnInit {
       }
     }
     this.addHintGroups()
-    this._isLoaded = true
+    this.isLoaded = true
   }
 }
