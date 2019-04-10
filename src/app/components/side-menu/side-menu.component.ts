@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
+import { PathConstants } from 'src/app/constants/PathConstants';
 
 @Component({
   selector: 'app-side-menu',
@@ -7,9 +9,16 @@ import { Component, OnInit } from '@angular/core';
 })
 export class SideMenuComponent implements OnInit {
 
-  constructor() { }
+  constructor(private router: Router) { }
 
   ngOnInit() {
   }
 
+  public toGamesPage() {
+    this.router.navigate([PathConstants.ALL_GAMES_PATH])
+  }
+
+  public toHomePage() {
+    this.router.navigate([PathConstants.HOME_PATH])
+  }
 }

@@ -1,6 +1,6 @@
 <app-topbar (menuClick)="sideNav.toggle()" #topbar></app-topbar>
     <mat-sidenav-container [hasBackdrop]="false">
-    <mat-sidenav #sideNav class="side-nav">
+    <mat-sidenav #sideNav class="side-nav" (click)="sideNav.close()">
         <app-side-menu></app-side-menu>
     </mat-sidenav>
     <mat-sidenav-content (click)="sideNav.close()">

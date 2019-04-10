@@ -4,6 +4,7 @@ import { Routes, RouterModule } from '@angular/router';
 import { HomeComponent } from './components/home/home.component';
 import { LoginComponent } from './components/login/login.component';
 import { AuthGuardService } from './services/auth/auth-guard.service';
+import { SavedGamesComponent } from './components/saved-games/saved-games.component';
 
 const appRoutes: Routes = [
     {
@@ -19,6 +20,11 @@ const appRoutes: Routes = [
     {
         path: 'login',
         component: LoginComponent
+    },
+    {
+        path: 'saved_games',
+        canActivate: [AuthGuardService],
+        component: SavedGamesComponent
     },
     {
         path: '**',

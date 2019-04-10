@@ -10,6 +10,7 @@ import { FirebaseUserService } from './auth/firebase-user.service';
 })
 export class DatabaseService {
   static GAMES_CHILD_NAME = "games"
+  static USERS_CHILD_NAME = "users"
   static PUZZLES_CHILD_NAME = "puzzles"
   static DATE_CHILD_NAME = "date"
   static GAME_DATA_CHILD_NAME = "game_data"
@@ -19,6 +20,14 @@ export class DatabaseService {
 
   public getGameRef(gameName: string) {
     return this.db.database.ref().child(DatabaseService.GAMES_CHILD_NAME).child(gameName)
+  }
+
+  public getUserRef() {
+    return this.db.database.ref().child(DatabaseService.USERS_CHILD_NAME).child(this.firebaseUser.getUserId())
+  }
+
+  public getAllGamesForUser() {
+    return this.getUserRef().child(DatabaseService.GAMES_CHILD_NAME)
   }
   
   public getGameDateRef(gameName: string) {
@@ -48,6 +57,10 @@ export class DatabaseService {
 
   public createGame(newGameName: string, table: TableComponent, gameDate: string,
                     acrossHints: HintsComponent, downHints: HintsComponent) {
+    // Push game to list of games played by signed-in user.
+    this.getAllGamesForUser().push(newGameName)
+
+    // Record game in global games list.
     this.getGameRef(newGameName).once("value", (snap) => {
       if (snap.val() == null) {
         this.getGameRef(newGameName).set({

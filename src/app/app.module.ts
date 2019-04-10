@@ -19,6 +19,7 @@ import { HomeComponent } from './components/home/home.component';
 import { AppRoutes } from './app.routes';
 import { AngularFireAuthModule } from '@angular/fire/auth';
 import { SideMenuComponent } from './components/side-menu/side-menu.component';
+import { SavedGamesComponent } from './components/saved-games/saved-games.component';
 
 @NgModule({
   declarations: [
@@ -29,7 +30,8 @@ import { SideMenuComponent } from './components/side-menu/side-menu.component';
     TopbarComponent,
     LoginComponent,
     HomeComponent,
-    SideMenuComponent
+    SideMenuComponent,
+    SavedGamesComponent
   ],
   imports: [
     AngularFireModule.initializeApp(environment.firebase, 'crosswords'),
