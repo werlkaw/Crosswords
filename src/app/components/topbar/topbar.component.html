@@ -7,9 +7,7 @@
             <mat-icon class="pointer-cursor" (click)="menuClick.emit()">menu</mat-icon>
           </td>
           <td>
-          <div class="container">
               {{ gameTitle }}
-          </div>
           </td>
           <td style="width:1px;white-space:nowrap;">
           <div *ngIf="firebaseUser.loggedIn()" class="profile-pic-container" mat-icon-button [matMenuTriggerFor]="accountOptions">

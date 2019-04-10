@@ -1,5 +1,5 @@
-<div>
+<div *ngIf="firebaseUser.loggedIn()">
 <img class="profile-pic" src={{firebaseUser.getUserPhotoUrl()}}>
-</div>
 <button mat-button (click)="toHomePage()">Home</button>
 <button mat-button (click)="toGamesPage()">Saved Games</button>
+</div>
