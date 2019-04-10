@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { PathConstants } from 'src/app/constants/PathConstants';
+import { FirebaseUserService } from 'src/app/services/auth/firebase-user.service';
 
 @Component({
   selector: 'app-side-menu',
@@ -9,7 +10,7 @@ import { PathConstants } from 'src/app/constants/PathConstants';
 })
 export class SideMenuComponent implements OnInit {
 
-  constructor(private router: Router) { }
+  constructor(private router: Router, public firebaseUser: FirebaseUserService) { }
 
   ngOnInit() {
   }
