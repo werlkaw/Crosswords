@@ -21,10 +21,10 @@ const DOWN_HINTS_KEY = "downHints"
   styleUrls: ['./crossword.component.css']
 })
 export class CrosswordComponent implements OnInit {
-  @ViewChild('table') table: TableComponent
-  @ViewChild('acrossHints') acrossHints: HintsComponent
-  @ViewChild('downHints') downHints: HintsComponent
-  @ViewChild('dateinput') dateinput: ElementRef
+  @ViewChild('table', { static: true }) table: TableComponent
+  @ViewChild('acrossHints', { static: true }) acrossHints: HintsComponent
+  @ViewChild('downHints', { static: true }) downHints: HintsComponent
+  @ViewChild('dateinput', { static: true }) dateinput: ElementRef
   public puzzleDate: FormControl = new FormControl(new Date())
 
   private parser: DOMParser = new DOMParser()

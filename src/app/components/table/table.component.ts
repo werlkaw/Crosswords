@@ -14,7 +14,7 @@ const HIGHLIGHTED_WORD_CLASS = "highlighted-word"
 export class TableComponent implements OnInit {
   @Output() outputChangedSquare = new EventEmitter<CrosswordSquare>();
   @Output() outputFocusedSquare = new EventEmitter<CrosswordSquare>();
-  @ViewChild("puzzleInput") puzzleInput: ElementRef
+  @ViewChild("puzzleInput", { static: true }) puzzleInput: ElementRef
 
   private isVertical: boolean = false
   private isLoaded: boolean
