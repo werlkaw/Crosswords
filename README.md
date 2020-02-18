@@ -15,7 +15,7 @@ Then, clone the repository. Once the cloning is complete, go to the cloned direc
 Due to the sensitive nature of the environment file, it has been added to the .gitignore file.
 You must add an environments folder under src and add an environment.ts file with the following format:
 
-`
+```
 export const environment = {
   production: false,
   firebase: {
@@ -28,7 +28,7 @@ export const environment = {
     appId: "{YourAppId}"
   }
 };
-`
+```
 Instructions on how to set up a firebase server can be found [here](https://medium.com/factory-mind/angular-firebase-typescript-step-by-step-tutorial-2ef887fc7d71).
 
 ## Development server
