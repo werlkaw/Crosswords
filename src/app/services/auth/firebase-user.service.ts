@@ -2,7 +2,7 @@ import * as firebase from 'firebase/app';
 import { Injectable } from '@angular/core';
 import { AngularFireAuth } from '@angular/fire/auth';
 import { Router } from '@angular/router';
-import { PathConstants } from 'src/app/constants/PathConstants';
+import { PathConstants } from 'src/app/constants/path-constants';
 
 @Injectable({
   providedIn: 'root'

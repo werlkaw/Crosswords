@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { FirebaseUserService } from 'src/app/services/auth/firebase-user.service';
-import { PathConstants } from 'src/app/constants/PathConstants';
+import { PathConstants } from 'src/app/constants/path-constants';
 
 @Component({
   selector: 'app-login',

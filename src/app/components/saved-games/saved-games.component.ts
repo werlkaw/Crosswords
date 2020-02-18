@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { DatabaseService } from 'src/app/services/database.service';
 import { Router } from '@angular/router';
-import { PathConstants } from 'src/app/constants/PathConstants';
+import { PathConstants } from 'src/app/constants/path-constants';
 
 @Component({
   selector: 'app-saved-games',

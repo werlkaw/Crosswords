@@ -7,7 +7,7 @@ import { Injectable } from '@angular/core';
 import { AngularFireAuth } from '@angular/fire/auth';
 import { CanActivate, Router } from '@angular/router';
 
-import { PathConstants } from '../../constants/PathConstants';
+import { PathConstants } from '../../constants/path-constants';
 
 @Injectable({
   providedIn: 'root'

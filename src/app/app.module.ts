@@ -34,7 +34,7 @@ import { SavedGamesComponent } from './components/saved-games/saved-games.compon
     SavedGamesComponent
   ],
   imports: [
-    AngularFireModule.initializeApp(environment.firebase, 'crosswords'),
+    AngularFireModule.initializeApp(environment.firebase, 'crosswords-92'),
     AngularFireAuthModule,
     AngularFireDatabaseModule,
     BrowserAnimationsModule,
