@@ -1,7 +1,5 @@
-import 'rxjs/add/operator/map';
-import 'rxjs/add/operator/do';
-import 'rxjs/add/operator/take';
-import { Observable } from 'rxjs';
+import { map, tap, first } from 'rxjs/operators'
+import { Observable, of } from 'rxjs';
 
 import { Injectable } from '@angular/core';
 import { AngularFireAuth } from '@angular/fire/auth';
@@ -18,13 +16,15 @@ export class AuthGuardService implements CanActivate {
 
   canActivate(): Observable<boolean> {
     return this.angularFireAuth.authState
-      .take(1)
-      .map((authState) => !!authState)
-      .do(authenticated => {
+    .pipe(
+      first(),
+      map((authState) => !!authState),
+      tap(authenticated => {
         if (!authenticated) {
           console.log("not authenticated! redirecting...")
           this.router.navigate([PathConstants.LOGIN_PATH]);
         }
-      });
+      })
+    );
   }
 }
