@@ -14,6 +14,6 @@ export class TableService {
    *    date (string): String representation of the date for the puzzle. mm/dd/yyyy format.
   */
   fetchCrossword(date: string): Observable<Object> {
-    return this.http.get("https://crosswords.interconsulta.com.mx/get-crossword.php?date=" + date, { responseType: "json" })
+    return this.http.get("https://us-central1-crosswords-92.cloudfunctions.net/fetchPuzzle?date=" + date, { responseType: "json" })
   }
 }

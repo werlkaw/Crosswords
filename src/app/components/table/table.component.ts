@@ -331,9 +331,9 @@ export class TableComponent implements OnInit {
 
   public populate(data: Document) {
     // Initialize data and answers to empty arrays
-    this.isLoaded = false
-    this.tableData = new Array()
-    let rows = data.getElementsByTagName("tr")
+    this.isLoaded = false;
+    this.tableData = new Array();
+    let rows = data.getElementsByTagName("tr");
     for (let row = 0; row < rows.length; row++) {
       this.tableData.push(new Array())
       let columns = rows[row].getElementsByTagName("td")
